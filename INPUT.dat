@@ -55,7 +55,7 @@
             </point>
             <point>
                 <x>100</x>
-                <y>-10</y>
+                <y>0</y>
             </point>
         </vertices>
     </ground>
@@ -134,41 +134,61 @@
                 <y>2</y>
             </point>
         </target_point>
-        <left_side_of_target>
-            <point>
-                <x>-5</x>
-                <y>5</y>
-            </point>
-            <point>
-                <x>0</x>
-                <y>2</y>
-            </point>
-            <point>
-                <x>0</x>
-                <y>0</y>
-            </point>
-            <point>
-                <x>-5</x>
-                <y>0</y>
-            </point>
-        </left_side_of_target>
-        <right_side_of_target>
-            <point>
-                <x>5</x>
-                <y>5</y>
-            </point>
-            <point>
-                <x>0</x>
-                <y>2</y>
-            </point>
-            <point>
-                <x>0</x>
-                <y>0</y>
-            </point>
-            <point>
-                <x>5</x>
-                <y>0</y>
-            </point>
-        </right_side_of_target>
+        <polygons>
+            <polygon>
+                <point>
+                    <x>10</x>
+                    <y>10</y>
+                </point>
+                <point>
+                    <x>11</x>
+                    <y>10</y>
+                </point>
+                <point>
+                    <x>11</x>
+                    <y>0</y>
+                </point>
+                <point>
+                    <x>10</x>
+                    <y>0</y>
+                </point>
+            </polygon>
+            <polygon>
+                <point>
+                    <x>5</x>
+                    <y>5</y>
+                </point>
+                <point>
+                    <x>0</x>
+                    <y>2</y>
+                </point>
+                <point>
+                    <x>0</x>
+                    <y>0</y>
+                </point>
+                <point>
+                    <x>5</x>
+                    <y>0</y>
+                </point>
+            </polygon>
+            <polygon>
+                <point>
+                    <x>-5</x>
+                    <y>5</y>
+                </point>
+                <point>
+                    <x>0</x>
+                    <y>2</y>
+                </point>
+                <point>
+                    <x>0</x>
+                    <y>0</y>
+                </point>
+                <point>
+                    <x>-5</x>
+                    <y>0</y>
+                </point>
+            </polygon>
+        </polygons>
     </target>
 </data>

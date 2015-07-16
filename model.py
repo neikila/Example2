@@ -107,14 +107,16 @@ class Throwable(Simulation):
           shapes=create_shapes(sett.ground_settings.points)
         )
 
-    # Hole
-    target = self.world.CreateStaticBody(
-          position=sett.target_position,
-          shapes=[
-              b2PolygonShape(vertices=sett.left_side_of_target),
-              b2PolygonShape(vertices=sett.right_side_of_target),
-            ]
-        )
+    # Target
+    for polygon in sett.polygons:
+      target = self.world.CreateDynamicBody(
+            position=sett.target_position,
+            shapeFixture=b2FixtureDef(density=1),
+            shapes=[
+                b2PolygonShape(vertices=polygon),
+              ]
+          )
+
     self.target = target.GetWorldPoint(sett.target_point)
 
     # Body
@@ -136,6 +138,7 @@ class Throwable(Simulation):
         )
     self.fixtures = self.body.fixtures
     self.mass_data = b2MassData()
+    
 
     # Create output xml tree
     self.result_tree = ET.Element("data")
@@ -146,6 +149,7 @@ class Throwable(Simulation):
 
   # Reset Thowable object
   def Restart(self):
+    
     sett = self.start_settings
     self.body.position = sett.position
     self.body.linearVelocity = (
@@ -181,6 +185,7 @@ class Throwable(Simulation):
 
   def Step(self, settings):
     self.step_world(settings)
+    
     self.iteration_number += 1
     distance = self.distance_to_target(self.target)
     if self.min_distance > distance:
@@ -233,4 +238,3 @@ if __name__=="__main__":
   world = Throwable(start_settings)
   world.run()
   world.finalize()
-  drawer.main(world.result_tree, world.start_settings)

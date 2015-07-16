@@ -9,9 +9,24 @@ def get_points_from_xml(element_name, root_element):
   return points
 
 
+def get_points_from_xml_by_element(element):
+  points = []
+  for point in element.findall('point'):
+    points.append((float(point[0].text), float(point[1].text)))
+  return points
+
+
 def get_point_from_xml(element_name, root_element):
   point = root_element.find(element_name)[0]
   return (float(point[0].text), float(point[1].text))
+
+
+def get_polygons_from_xml(element_name, root_element):
+  polygons = []
+  element = root_element.find(element_name)
+  for polygon in element.findall('polygon'):
+    polygons.append(get_points_from_xml_by_element(polygon))
+  return polygons
 
 
 class GroundSettings():
@@ -62,5 +77,4 @@ class StartSettings():
     target = root.find('target')
     self.target_point = get_point_from_xml('target_point', target) 
     self.target_position = get_point_from_xml('target_position', target) 
-    self.left_side_of_target = get_points_from_xml('left_side_of_target', target) 
-    self.right_side_of_target = get_points_from_xml('right_side_of_target', target) 
+    self.polygons = get_polygons_from_xml('polygons', target) 
