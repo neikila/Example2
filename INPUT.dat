@@ -84,17 +84,17 @@
             </circles>
         </shape>
     </projectile>
-    <targets>
-        <target>
+    <blocks>
+        <block>
             <description>
                 <!-- static -->
                 <total_height>6</total_height>
                 <total_width>13</total_width>
             </description>
-            <target_position>
+            <block_position>
                 <x>10</x>
                 <y>20</y>
-            </target_position>
+            </block_position>
             <bodies>
                 <body>
                     <is_dynamic>False</is_dynamic>
@@ -163,17 +163,17 @@
                     </shape>
                 </body>
             </bodies>
-        </target>
-        <target>
+        </block>
+        <block>
             <description>
                 <!-- Third target -->
                 <total_height>6</total_height>
                 <total_width>13</total_width>
             </description>
-            <target_position>
+            <block_position>
                 <x>40</x>
                 <y>0</y>
-            </target_position>
+            </block_position>
             <bodies>
                 <body>
                     <position>
@@ -236,6 +236,7 @@
                         <x>-1</x>
                         <y>17</y>
                     </position>
+                    <is_target>True</is_target>
                     <shape>
                         <rectangles>
                             <rectangle>
@@ -246,17 +247,17 @@
                     </shape>
                 </body>
             </bodies>
-        </target>
-        <target>
+        </block>
+        <block>
             <description>
                 <!-- First target -->
                 <total_height>16</total_height>
                 <total_width>10</total_width>
             </description>
-            <target_position>
+            <block_position>
                 <x>30</x>
                 <y>0</y>
-            </target_position>
+            </block_position>
             <bodies>
                 <body>
                     <position>
@@ -305,6 +306,7 @@
                         <x>4</x>
                         <y>11</y>
                     </position>
+                    <is_target>True</is_target>
                     <shape>
                         <rectangles>
                             <rectangle>
@@ -369,17 +371,17 @@
                     </shape>
                 </body>
             </bodies>
-        </target>
-        <target>
+        </block>
+        <block>
             <description>
                 <!-- Second target -->
                 <total_height>16</total_height>
                 <total_width>10</total_width>
             </description>
-            <target_position>
+            <block_position>
                 <x>41</x>
                 <y>0</y>
-            </target_position>
+            </block_position>
             <bodies>
                 <body>
                     <position>
@@ -428,6 +430,7 @@
                         <x>4</x>
                         <y>11</y>
                     </position>
+                    <is_target>True</is_target>
                     <shape>
                         <rectangles>
                             <rectangle>
@@ -492,6 +495,6 @@
                     </shape>
                 </body>
             </bodies>
-        </target>
-    </targets>
+        </block>
+    </blocks>
 </data>

@@ -94,6 +94,7 @@ class BodySettings(object):
         get_rectangle_from_xml
         )
     self.position = get_point_from_xml('position', body)
+    self.is_target = get_param('is_target', body, 'False') == 'True'
 
 
 def get_bodies_from_xml(element_name, root_element):
@@ -104,11 +105,11 @@ def get_bodies_from_xml(element_name, root_element):
   return bodies
 
 
-class TargetSettings(object):
+class BlockSettings(object):
 
-  def __init__(self, target):
-    self.target_position = get_point_from_xml('target_position', target) 
-    self.bodies = get_bodies_from_xml('bodies', target)
+  def __init__(self, block):
+    self.block_position = get_point_from_xml('block_position', block) 
+    self.bodies = get_bodies_from_xml('bodies', block)
 
 
 class GroundSettings(object):
@@ -157,7 +158,7 @@ class StartSettings(object):
     body = root.find('projectile')
     self.projectile_settings = BodySettings(body)
 
-    targets = root.find('targets').findall('target')
-    self.targets = []
-    for target in targets:
-      self.targets.append(TargetSettings(target))
+    blocks = root.find('blocks').findall('block')
+    self.blocks = []
+    for block in blocks:
+      self.blocks.append(BlockSettings(block))

@@ -108,18 +108,19 @@ class Throwable(Simulation):
           shapes=create_not_cycled_chain_shape(sett.ground_settings.points)
         )
 
-    # Targets
-    for target in sett.targets:
-      target_position = target.target_position
-      for body in target.bodies:
+    # Blocks
+    self.targets = []
+    for block in sett.blocks:
+      block_position = block.block_position
+      for body in block.bodies:
         if body.is_dynamic == True:
           func = self.world.CreateDynamicBody
         else:
           func = self.world.CreateStaticBody
-        target = func(
+        block = func(
               position=(
-                target_position[0] + body.position[0],
-                target_position[1] + body.position[1]
+                block_position[0] + body.position[0],
+                block_position[1] + body.position[1]
                 ),
               angle=body.angle,
               shapes=create_shapes(body),
@@ -132,8 +133,12 @@ class Throwable(Simulation):
                   math.sin(body.lin_velocity_angle)
                 )
             )
+        if body.is_target == True:
+          self.targets.append(block)
+    for body in self.targets:
+      print body
 
-    # Body
+    # Projectile
     body = sett.projectile_settings
     self.shapes = create_shapes(body)
     self.body=self.world.CreateDynamicBody(
