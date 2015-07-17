@@ -1,674 +1,96 @@
 <data>
   <trajectory>
     <iteration num="0">
-      <x>-19.9675521851</x>
-      <y>19.6961650848</y>
-      <distance>2372.0</distance>
+      <x>-16.6431274414</x>
+      <y>21.4651260376</y>
+      <distance>0</distance>
     </iteration>
     <iteration num="4">
-      <x>-19.1289978027</x>
-      <y>20.160194397</y>
-      <distance>2330.55273438</distance>
+      <x>-15.3581533432</x>
+      <y>21.0902023315</y>
+      <distance>0</distance>
     </iteration>
     <iteration num="8">
-      <x>-18.2904434204</x>
-      <y>20.5797767639</y>
-      <distance>2258.86083984</distance>
+      <x>-14.0731811523</x>
+      <y>20.6708335876</y>
+      <distance>0</distance>
     </iteration>
     <iteration num="12">
-      <x>-17.4518890381</x>
-      <y>20.9549160004</y>
-      <distance>2168.35253906</distance>
+      <x>-13.2837648392</x>
+      <y>20.9457416534</y>
+      <distance>0</distance>
     </iteration>
     <iteration num="16">
-      <x>-16.6133346558</x>
-      <y>21.285610199</y>
-      <distance>2104.82470703</distance>
+      <x>-12.7429628372</x>
+      <y>21.5443687439</y>
+      <distance>0</distance>
     </iteration>
     <iteration num="20">
-      <x>-15.7747783661</x>
-      <y>21.5718612671</y>
-      <distance>2067.52758789</distance>
+      <x>-12.2021598816</x>
+      <y>22.0985488892</y>
+      <distance>0</distance>
     </iteration>
     <iteration num="24">
-      <x>-14.9362201691</x>
-      <y>21.8136672974</y>
-      <distance>2049.7265625</distance>
+      <x>-11.6613588333</x>
+      <y>22.6082859039</y>
+      <distance>0</distance>
     </iteration>
     <iteration num="28">
-      <x>-14.097661972</x>
-      <y>22.0110282898</y>
-      <distance>1958.45751953</distance>
+      <x>-11.1205568314</x>
+      <y>23.0735778809</y>
+      <distance>0</distance>
     </iteration>
     <iteration num="32">
-      <x>-13.259103775</x>
-      <y>22.1639461517</y>
-      <distance>1885.33959961</distance>
+      <x>-10.5797548294</x>
+      <y>23.4944267273</y>
+      <distance>0</distance>
     </iteration>
     <iteration num="36">
-      <x>-12.420545578</x>
-      <y>22.2724189758</y>
-      <distance>1793.34106445</distance>
+      <x>-10.0389528275</x>
+      <y>23.8708305359</y>
+      <distance>0</distance>
     </iteration>
     <iteration num="40">
-      <x>-11.581987381</x>
-      <y>22.3364467621</y>
-      <distance>1725.36523438</distance>
+      <x>-9.49814987183</x>
+      <y>24.2027893066</y>
+      <distance>0</distance>
     </iteration>
     <iteration num="44">
-      <x>-10.743429184</x>
-      <y>22.3560295105</y>
-      <distance>1682.9362793</distance>
+      <x>-8.95734882355</x>
+      <y>24.4903049469</y>
+      <distance>0</distance>
     </iteration>
     <iteration num="48">
-      <x>-9.90487098694</x>
-      <y>22.3311691284</y>
-      <distance>1612.22900391</distance>
+      <x>-8.41654682159</x>
+      <y>24.7333755493</y>
+      <distance>0</distance>
     </iteration>
     <iteration num="52">
-      <x>-9.06631278992</x>
-      <y>22.2618637085</y>
-      <distance>1556.10754395</distance>
+      <x>-7.8757443428</x>
+      <y>24.9320011139</y>
+      <distance>0</distance>
     </iteration>
     <iteration num="56">
-      <x>-8.2277545929</x>
-      <y>22.1481132507</y>
-      <distance>1523.2878418</distance>
+      <x>-7.33494281769</x>
+      <y>25.0861816406</y>
+      <distance>0</distance>
     </iteration>
     <iteration num="60">
-      <x>-7.38919639587</x>
-      <y>21.9899196625</y>
-      <distance>1456.84472656</distance>
-    </iteration>
-    <iteration num="64">
-      <x>-6.55063819885</x>
-      <y>21.7872810364</y>
-      <distance>1382.97607422</distance>
-    </iteration>
-    <iteration num="68">
-      <x>-5.71208000183</x>
-      <y>21.5401973724</y>
-      <distance>1331.18579102</distance>
-    </iteration>
-    <iteration num="72">
-      <x>-4.87352180481</x>
-      <y>21.2486686707</y>
-      <distance>1298.72583008</distance>
-    </iteration>
-    <iteration num="76">
-      <x>-4.02229118347</x>
-      <y>20.9914741516</y>
-      <distance>1206.06103516</distance>
-    </iteration>
-    <iteration num="80">
-      <x>-3.15057468414</x>
-      <y>20.790178299</y>
-      <distance>1121.71728516</distance>
-    </iteration>
-    <iteration num="84">
-      <x>-2.27885818481</x>
-      <y>20.5444393158</y>
-      <distance>1059.03723145</distance>
-    </iteration>
-    <iteration num="88">
-      <x>-1.40714168549</x>
-      <y>20.2542533875</y>
-      <distance>1016.17834473</distance>
-    </iteration>
-    <iteration num="92">
-      <x>-0.535425186157</x>
-      <y>19.9196243286</y>
-      <distance>942.922851562</distance>
-    </iteration>
-    <iteration num="96">
-      <x>0.336291253567</x>
-      <y>19.5405521393</y>
-      <distance>885.843139648</distance>
-    </iteration>
-    <iteration num="100">
-      <x>1.20800769329</x>
-      <y>19.1170349121</y>
-      <distance>848.48425293</distance>
-    </iteration>
-    <iteration num="104">
-      <x>2.07972407341</x>
-      <y>18.6490726471</y>
-      <distance>797.165649414</distance>
-    </iteration>
-    <iteration num="108">
-      <x>3.06273627281</x>
-      <y>18.3183002472</y>
-      <distance>754.759887695</distance>
-    </iteration>
-    <iteration num="112">
-      <x>4.05411195755</x>
-      <y>17.9549827576</y>
-      <distance>688.350708008</distance>
-    </iteration>
-    <iteration num="116">
-      <x>5.04548692703</x>
-      <y>17.5472202301</y>
-      <distance>619.016479492</distance>
-    </iteration>
-    <iteration num="120">
-      <x>6.03686189651</x>
-      <y>17.0950145721</y>
-      <distance>563.715698242</distance>
-    </iteration>
-    <iteration num="124">
-      <x>7.028236866</x>
-      <y>16.5983638763</y>
-      <distance>521.500976562</distance>
-    </iteration>
-    <iteration num="128">
-      <x>8.01961231232</x>
-      <y>16.0572681427</y>
-      <distance>490.792297363</distance>
-    </iteration>
-    <iteration num="132">
-      <x>9.0109872818</x>
-      <y>15.4717283249</y>
-      <distance>438.230438232</distance>
-    </iteration>
-    <iteration num="136">
-      <x>10.0023622513</x>
-      <y>14.8417444229</y>
-      <distance>380.259674072</distance>
-    </iteration>
-    <iteration num="140">
-      <x>10.9937372208</x>
-      <y>14.1673164368</y>
-      <distance>328.902587891</distance>
-    </iteration>
-    <iteration num="144">
-      <x>12.0359420776</x>
-      <y>13.6277427673</y>
-      <distance>278.273193359</distance>
-    </iteration>
-    <iteration num="148">
-      <x>13.1336021423</x>
-      <y>13.2541341782</y>
-      <distance>241.559844971</distance>
-    </iteration>
-    <iteration num="152">
-      <x>14.231262207</x>
-      <y>12.8360815048</y>
-      <distance>214.125579834</distance>
-    </iteration>
-    <iteration num="156">
-      <x>15.3289222717</x>
-      <y>12.3735837936</y>
-      <distance>178.408935547</distance>
-    </iteration>
-    <iteration num="160">
-      <x>16.4265804291</x>
-      <y>11.8666419983</y>
-      <distance>148.16973877</distance>
-    </iteration>
-    <iteration num="164">
-      <x>17.5242366791</x>
-      <y>11.3152551651</y>
-      <distance>126.503753662</distance>
-    </iteration>
-    <iteration num="168">
-      <x>18.6218929291</x>
-      <y>10.7194242477</y>
-      <distance>106.135528564</distance>
-    </iteration>
-    <iteration num="172">
-      <x>19.7597541809</x>
-      <y>10.2853794098</y>
-      <distance>79.3877792358</distance>
-    </iteration>
-    <iteration num="176">
-      <x>20.8466854095</x>
-      <y>9.97281932831</y>
-      <distance>60.2832298279</distance>
-    </iteration>
-    <iteration num="180">
-      <x>21.3009090424</x>
-      <y>10.4288864136</y>
-      <distance>60.4188728333</distance>
-    </iteration>
-    <iteration num="184">
-      <x>21.7551326752</x>
-      <y>10.840508461</y>
-      <distance>61.5674324036</distance>
-    </iteration>
-    <iteration num="188">
-      <x>22.209356308</x>
-      <y>11.2076864243</y>
-      <distance>63.7069320679</distance>
-    </iteration>
-    <iteration num="192">
-      <x>22.6635799408</x>
-      <y>11.5304203033</y>
-      <distance>66.3915100098</distance>
-    </iteration>
-    <iteration num="196">
-      <x>23.1178035736</x>
-      <y>11.8087091446</y>
-      <distance>67.2627105713</distance>
-    </iteration>
-    <iteration num="200">
-      <x>23.5720272064</x>
-      <y>12.0425539017</y>
-      <distance>65.7927932739</distance>
-    </iteration>
-    <iteration num="204">
-      <x>24.0262508392</x>
-      <y>12.2319545746</y>
-      <distance>61.9568443298</distance>
-    </iteration>
-    <iteration num="208">
-      <x>24.480474472</x>
-      <y>12.3769102097</y>
-      <distance>56.2895088196</distance>
-    </iteration>
-    <iteration num="212">
-      <x>24.9346981049</x>
-      <y>12.4774217606</y>
-      <distance>51.1980552673</distance>
-    </iteration>
-    <iteration num="216">
-      <x>25.3889217377</x>
-      <y>12.5334892273</y>
-      <distance>47.1220855713</distance>
-    </iteration>
-    <iteration num="220">
-      <x>25.8431453705</x>
-      <y>12.5451116562</y>
-      <distance>44.0830230713</distance>
-    </iteration>
-    <iteration num="224">
-      <x>26.2973690033</x>
-      <y>12.5122900009</y>
-      <distance>42.0661239624</distance>
-    </iteration>
-    <iteration num="228">
-      <x>26.7515926361</x>
-      <y>12.4350233078</y>
-      <distance>40.9859695435</distance>
-    </iteration>
-    <iteration num="232">
-      <x>27.2058162689</x>
-      <y>12.3133125305</y>
-      <distance>38.9302024841</distance>
-    </iteration>
-    <iteration num="236">
-      <x>27.6600399017</x>
-      <y>12.1471567154</y>
-      <distance>35.0379714966</distance>
-    </iteration>
-    <iteration num="240">
-      <x>28.1142635345</x>
-      <y>11.9365568161</y>
-      <distance>29.9409065247</distance>
-    </iteration>
-    <iteration num="244">
-      <x>28.5684871674</x>
-      <y>11.6815128326</y>
-      <distance>25.5522480011</distance>
-    </iteration>
-    <iteration num="248">
-      <x>29.0227108002</x>
-      <y>11.3820238113</y>
-      <distance>22.195186615</distance>
-    </iteration>
-    <iteration num="252">
-      <x>29.476934433</x>
-      <y>11.0380907059</y>
-      <distance>19.7523651123</distance>
-    </iteration>
-    <iteration num="256">
-      <x>29.9311580658</x>
-      <y>10.6497135162</y>
-      <distance>17.8021240234</distance>
-    </iteration>
-    <iteration num="260">
-      <x>30.3853816986</x>
-      <y>10.2168912888</y>
-      <distance>15.1682024002</distance>
-    </iteration>
-    <iteration num="264">
-      <x>30.8396053314</x>
-      <y>9.73962497711</y>
-      <distance>12.0924634933</distance>
-    </iteration>
-    <iteration num="268">
-      <x>31.2938289642</x>
-      <y>9.2179145813</y>
-      <distance>9.13413047791</distance>
-    </iteration>
-    <iteration num="272">
-      <x>31.7480506897</x>
-      <y>8.65175914764</y>
-      <distance>6.84242296219</distance>
-    </iteration>
-    <iteration num="276">
-      <x>32.1026039124</x>
-      <y>8.30339813232</y>
-      <distance>6.16174602509</distance>
-    </iteration>
-    <iteration num="280">
-      <x>32.312828064</x>
-      <y>8.33233833313</y>
-      <distance>7.14512348175</distance>
-    </iteration>
-    <iteration num="284">
-      <x>32.5269241333</x>
-      <y>8.31887054443</y>
-      <distance>7.83786678314</distance>
-    </iteration>
-    <iteration num="288">
-      <x>32.7416229248</x>
-      <y>8.27483654022</y>
-      <distance>8.26090431213</distance>
-    </iteration>
-    <iteration num="292">
-      <x>32.9586410522</x>
-      <y>8.18433570862</y>
-      <distance>8.33347129822</distance>
-    </iteration>
-    <iteration num="296">
-      <x>33.176322937</x>
-      <y>8.04791641235</y>
-      <distance>8.0850610733</distance>
-    </iteration>
-    <iteration num="300">
-      <x>33.3940505981</x>
-      <y>7.8669090271</y>
-      <distance>7.57388973236</distance>
-    </iteration>
-    <iteration num="304">
-      <x>33.6117782593</x>
-      <y>7.64145708084</y>
-      <distance>6.87113618851</distance>
-    </iteration>
-    <iteration num="308">
-      <x>33.8085708618</x>
-      <y>7.50756549835</y>
-      <distance>6.71549892426</distance>
-    </iteration>
-    <iteration num="312">
-      <x>33.9795303345</x>
-      <y>7.52179861069</y>
-      <distance>7.37409448624</distance>
-    </iteration>
-    <iteration num="316">
-      <x>34.1481819153</x>
-      <y>7.52155733109</y>
-      <distance>8.03940677643</distance>
-    </iteration>
-    <iteration num="320">
-      <x>34.3091316223</x>
-      <y>7.50894641876</y>
-      <distance>8.69282722473</distance>
-    </iteration>
-    <iteration num="324">
-      <x>34.4586715698</x>
-      <y>7.48232650757</y>
-      <distance>9.27791595459</distance>
-    </iteration>
-    <iteration num="328">
-      <x>34.5969161987</x>
-      <y>7.44091749191</y>
-      <distance>9.76855659485</distance>
-    </iteration>
-    <iteration num="332">
-      <x>34.7240638733</x>
-      <y>7.38347387314</y>
-      <distance>10.1337709427</distance>
-    </iteration>
-    <iteration num="336">
-      <x>34.840423584</x>
-      <y>7.30833864212</y>
-      <distance>10.3383636475</distance>
-    </iteration>
-    <iteration num="340">
-      <x>34.9464149475</x>
-      <y>7.21347951889</y>
-      <distance>10.3441314697</distance>
-    </iteration>
-    <iteration num="344">
-      <x>35.0425796509</x>
-      <y>7.09657430649</y>
-      <distance>10.1128787994</distance>
-    </iteration>
-    <iteration num="348">
-      <x>35.1295394897</x>
-      <y>6.95513772964</y>
-      <distance>9.61109352112</distance>
-    </iteration>
-    <iteration num="352">
-      <x>35.199344635</x>
-      <y>6.79464626312</y>
-      <distance>8.82260322571</distance>
-    </iteration>
-    <iteration num="356">
-      <x>35.2567481995</x>
-      <y>6.6046204567</y>
-      <distance>7.75899171829</distance>
-    </iteration>
-    <iteration num="360">
-      <x>35.2760543823</x>
-      <y>6.46102237701</y>
-      <distance>6.95819664001</distance>
-    </iteration>
-    <iteration num="364">
-      <x>35.2564926147</x>
-      <y>6.38128900528</y>
-      <distance>6.4975399971</distance>
-    </iteration>
-    <iteration num="368">
-      <x>35.2369308472</x>
-      <y>6.25711107254</y>
-      <distance>5.9465007782</distance>
-    </iteration>
-    <iteration num="372">
-      <x>35.2058830261</x>
-      <y>6.11520910263</y>
-      <distance>5.3876285553</distance>
-    </iteration>
-    <iteration num="376">
-      <x>35.1662445068</x>
-      <y>5.94861459732</y>
-      <distance>4.80972194672</distance>
-    </iteration>
-    <iteration num="380">
-      <x>35.1175994873</x>
-      <y>5.75721645355</y>
-      <distance>4.1670460701</distance>
-    </iteration>
-    <iteration num="384">
-      <x>35.0597267151</x>
-      <y>5.54083442688</y>
-      <distance>3.4698472023</distance>
-    </iteration>
-    <iteration num="388">
-      <x>34.9919586182</x>
-      <y>5.30011510849</y>
-      <distance>2.74525547028</distance>
-    </iteration>
-    <iteration num="392">
-      <x>34.9105377197</x>
-      <y>5.04195261002</y>
-      <distance>2.02760672569</distance>
-    </iteration>
-    <iteration num="396">
-      <x>34.8169708252</x>
-      <y>4.76229000092</y>
-      <distance>1.34717512131</distance>
-    </iteration>
-    <iteration num="400">
-      <x>34.7084312439</x>
-      <y>4.56054258347</y>
-      <distance>0.85456854105</distance>
-    </iteration>
-    <iteration num="404">
-      <x>34.5815582275</x>
-      <y>4.5418586731</y>
-      <distance>0.614613890648</distance>
-    </iteration>
-    <iteration num="408">
-      <x>34.4502944946</x>
-      <y>4.51872110367</y>
-      <distance>0.404365956783</distance>
-    </iteration>
-    <iteration num="412">
-      <x>34.3139610291</x>
-      <y>4.49053001404</y>
-      <distance>0.229533240199</distance>
-    </iteration>
-    <iteration num="416">
-      <x>34.1718978882</x>
-      <y>4.45656299591</y>
-      <distance>0.0975849032402</distance>
-    </iteration>
-    <iteration num="420">
-      <x>34.0234832764</x>
-      <y>4.41596031189</y>
-      <distance>0.0180984269828</distance>
-    </iteration>
-    <iteration num="424">
-      <x>33.906917572</x>
-      <y>4.41200590134</y>
-      <distance>0.000513839477208</distance>
-    </iteration>
-    <iteration num="428">
-      <x>33.8723297119</x>
-      <y>4.45427846909</y>
-      <distance>0.000581986503676</distance>
-    </iteration>
-    <iteration num="432">
-      <x>33.8602180481</x>
-      <y>4.47212934494</y>
-      <distance>0.00059827498626</distance>
-    </iteration>
-    <iteration num="436">
-      <x>33.8634681702</x>
-      <y>4.46806955338</y>
-      <distance>0.00063443381805</distance>
-    </iteration>
-    <iteration num="440">
-      <x>33.8806495667</x>
-      <y>4.44197511673</y>
-      <distance>0.000672516878694</distance>
-    </iteration>
-    <iteration num="444">
-      <x>33.9113922119</x>
-      <y>4.39347362518</y>
-      <distance>0.000713917077519</distance>
-    </iteration>
-    <iteration num="448">
-      <x>33.936882019</x>
-      <y>4.40282535553</y>
-      <distance>0.00340549950488</distance>
-    </iteration>
-    <iteration num="452">
-      <x>33.9540557861</x>
-      <y>4.40832662582</y>
-      <distance>0.00621654186398</distance>
-    </iteration>
-    <iteration num="456">
-      <x>33.9628829956</x>
-      <y>4.41073560715</y>
-      <distance>0.00786991883069</distance>
-    </iteration>
-    <iteration num="460">
-      <x>33.963344574</x>
-      <y>4.41036987305</y>
-      <distance>0.0077734128572</distance>
-    </iteration>
-    <iteration num="464">
-      <x>33.9554405212</x>
-      <y>4.40730905533</y>
-      <distance>0.0059653269127</distance>
-    </iteration>
-    <iteration num="468">
-      <x>33.9391975403</x>
-      <y>4.40147209167</y>
-      <distance>0.00311277387664</distance>
-    </iteration>
-    <iteration num="472">
-      <x>33.9179649353</x>
-      <y>4.39490270615</y>
-      <distance>0.000878528342582</distance>
-    </iteration>
-    <iteration num="476">
-      <x>33.9215736389</x>
-      <y>4.39619445801</y>
-      <distance>0.00115247117355</distance>
-    </iteration>
-    <iteration num="480">
-      <x>33.921661377</x>
-      <y>4.39596652985</y>
-      <distance>0.00112462195102</distance>
-    </iteration>
-    <iteration num="484">
-      <x>33.921787262</x>
-      <y>4.39604473114</y>
-      <distance>0.00113705510739</distance>
-    </iteration>
-    <iteration num="488">
-      <x>33.9218139648</x>
-      <y>4.39609098434</y>
-      <distance>0.00114129588474</distance>
-    </iteration>
-    <iteration num="492">
-      <x>33.9218559265</x>
-      <y>4.39613962173</y>
-      <distance>0.00114689185284</distance>
-    </iteration>
-    <iteration num="496">
-      <x>33.9218864441</x>
-      <y>4.39618396759</y>
-      <distance>0.0011513705831</distance>
-    </iteration>
-    <iteration num="499">
-      <x>33.9219093323</x>
-      <y>4.39621496201</y>
-      <distance>0.00115458783694</distance>
+      <x>-6.79414081573</x>
+      <y>25.1959190369</y>
+      <distance>0</distance>
+    </iteration>
+    <iteration num="60">
+      <x>-6.79414081573</x>
+      <y>25.1959190369</y>
+      <distance>0</distance>
     </iteration>
   </trajectory>
   <result>
-    <distance>0.00115458783694</distance>
-    <min_distance>0.000451407773653</min_distance>
-    <mass>56.5</mass>
-    <inertia>521.333374023</inertia>
-    <body>
-      <vertice>
-        <x>31.3862514496</x>
-        <y>0.904958963394</y>
-      </vertice>
-      <vertice>
-        <x>35.2861785889</x>
-        <y>0.0158157348633</y>
-      </vertice>
-      <vertice>
-        <x>38.1252822876</x>
-        <y>3.471170187</y>
-      </vertice>
-      <vertice>
-        <x>38.5698547363</x>
-        <y>5.42113304138</y>
-      </vertice>
-      <vertice>
-        <x>37.0644645691</x>
-        <y>7.81566810608</y>
-      </vertice>
-      <vertice>
-        <x>33.1645355225</x>
-        <y>8.70481109619</y>
-      </vertice>
-      <vertice>
-        <x>29.3504486084</x>
-        <y>5.47174263</y>
-      </vertice>
-      <vertice>
-        <x>29.6585731506</x>
-        <y>2.32451200485</y>
-      </vertice>
-    </body>
+    <distance>0</distance>
+    <min_distance>0</min_distance>
+    <mass>84.7743377686</mass>
+    <inertia>4182.85986328</inertia>
+    <body />
   </result>
 </data>

@@ -41,11 +41,33 @@ def distance(p, p0, p1):
   return (p - h).lengthSquared
 
 
-def create_shapes(points):
+def create_not_cycled_chain_shape(points):
   shapes = []
   for p1, p2 in zip(points[:-1:1], points[1::1]):
     shapes.append(b2EdgeShape(vertices=[p1, p2]))
   return shapes
+
+
+def create_polygon_shapes(polygons):
+  shapes = []
+  for polygon in polygons:
+    shapes.append(b2PolygonShape(vertices=polygon))
+  return shapes
+
+
+def create_circle_shapes(circles):
+  shapes = []
+  for circle in circles:
+    shapes.append(b2CircleShape(radius=circle.radius, pos=circle.pos))
+  return shapes
+
+
+def create_shapes(body):
+  shapes = []
+  shapes += create_polygon_shapes(body.polygons)
+  shapes += create_circle_shapes(body.circles)
+  return shapes
+
 
 class Throwable(Simulation):
   iteration_number = 0
@@ -83,15 +105,18 @@ class Throwable(Simulation):
     sett = self.start_settings
 
     body = ET.SubElement(result, "body")
-    body_vertices = self.shapes.vertices
-    for vertice in body_vertices:
-      temp = self.body.GetWorldPoint(vertice)
-      vertice = ET.SubElement(body, "vertice")
-      x = ET.SubElement(vertice, "x")
-      x.text = str(temp.x)
-      
-      y = ET.SubElement(vertice, "y")
-      y.text = str(temp.y)
+    shape = self.shapes[0]
+    if shape is b2PolygonShape:
+      body = ET.SubElement(body, "polygon")
+      body_vertices = shape.vertices
+      for vertice in body_vertices:
+        temp = self.body.GetWorldPoint(vertice)
+        vertice = ET.SubElement(polygon, "vertice")
+        x = ET.SubElement(vertice, "x")
+        x.text = str(temp.x)
+        
+        y = ET.SubElement(vertice, "y")
+        y.text = str(temp.y)
 
   def __init__(self, start_settings):
 
@@ -100,45 +125,52 @@ class Throwable(Simulation):
     sett = self.start_settings = start_settings
 
     self.init_world()
-    self.world.gravity=b2Vec2(0, -1 * sett.g)
+    self.world.gravity=b2Vec2(0, -1 * sett.model_settings.g)
 
     # Ground
     self.world.CreateBody(
-          shapes=create_shapes(sett.ground_settings.points)
+          shapes=create_not_cycled_chain_shape(sett.ground_settings.points)
         )
 
+    target_position = sett.target_settings.target_position
     # Target
-    for polygon in sett.polygons:
+    for body in sett.target_settings.bodies:
       target = self.world.CreateDynamicBody(
-            position=sett.target_position,
+            position=(
+              target_position[0] + body.position[0],
+              target_position[1] + body.position[1]
+              ),
+            angle=body.angle,
+            shapes=create_shapes(body),
             shapeFixture=b2FixtureDef(density=1),
-            shapes=[
-                b2PolygonShape(vertices=polygon),
-              ]
+            angularVelocity=body.angular_velocity,
+            linearVelocity=(
+                body.lin_velocity_amplitude *
+                math.cos(body.lin_velocity_angle),
+                body.lin_velocity_amplitude *
+                math.sin(body.lin_velocity_angle)
+              )
           )
-
-    self.target = target.GetWorldPoint(sett.target_point)
+    self.target = b2Vec2((10, 10))
 
     # Body
-    self.shapes = (
-        b2PolygonShape(vertices=sett.geometry)
-             )
+    body = sett.projectile_settings
+    self.shapes = create_shapes(body)
     self.body=self.world.CreateDynamicBody(
-          position=sett.position, 
-          angle=sett.angle,
+          position=body.position, 
+          angle=body.angle,
           shapes=self.shapes,
           shapeFixture=b2FixtureDef(density=1),
-          angularVelocity=sett.angular_velocity,
+          angularVelocity=body.angular_velocity,
           linearVelocity=(
-              sett.lin_velocity_amplitude *
-              math.cos(sett.lin_velocity_angle),
-              sett.lin_velocity_amplitude *
-              math.sin(sett.lin_velocity_angle)
+              body.lin_velocity_amplitude *
+              math.cos(body.lin_velocity_angle),
+              body.lin_velocity_amplitude *
+              math.sin(body.lin_velocity_angle)
             )
         )
     self.fixtures = self.body.fixtures
     self.mass_data = b2MassData()
-    
 
     # Create output xml tree
     self.result_tree = ET.Element("data")
@@ -147,41 +179,9 @@ class Throwable(Simulation):
     self.save_iteration_in_xml_tree(self.min_distance)
     self.finalized = False
 
-  # Reset Thowable object
-  def Restart(self):
-    
-    sett = self.start_settings
-    self.body.position = sett.position
-    self.body.linearVelocity = (
-              sett.lin_velocity_amplitude *
-              math.cos(sett.lin_velocity_angle),
-              sett.lin_velocity_amplitude *
-              math.sin(sett.lin_velocity_angle)
-            )
-    self.body.angle = sett.angle
-    self.body.angularVelocity = sett.angular_velocity
 
   def Keyboard(self, key):
-    sett = self.start_settings
-
-    if key == Keys.K_r:
-      self.Restart()
-
-    if key == Keys.K_w and sett.lin_velocity_amplitude < 60:
-      sett.lin_velocity_amplitude += 1
-
-    if key == Keys.K_s and sett.lin_velocity_amplitude > 0:
-      sett.lin_velocity_amplitude -= 1
-
-    if key == Keys.K_a:
-      sett.lin_velocity_angle += 1.0 / 180.0 * b2_pi
-      if sett.lin_velocity_angle > 2 * b2_pi:
-        sett.lin_velocity_angle -= 2 * b2_pi
-
-    if key == Keys.K_d:
-      sett.lin_velocity_angle -= 1.0 / 180.0 * b2_pi
-      if sett.lin_velocity_angle < 0:
-        sett.lin_velocity_angle += 2 * b2_pi
+    pass
 
   def Step(self, settings):
     self.step_world(settings)
@@ -218,18 +218,22 @@ class Throwable(Simulation):
         self.finalize()
       
       velocity = self.body.linearVelocity
-      if velocity.lengthSquared < self.start_settings.epsilon_lin_velocity ** 2:
+      accuracy = self.start_settings.model_settings.epsilon_lin_velocity
+      if velocity.lengthSquared < accuracy ** 2:
         print "Too slow"
         self.finalize()
 
   def distance_to_target(self, target):
-    body_vertices = self.shapes.vertices
-    temp = [self.body.GetWorldPoint(vertice) for vertice in body_vertices]
-    minimum = distance(target, temp[-1], temp[0])
-    for p0, p1 in zip(temp[:-1:1], temp[1::1]):
-      dist = distance(target, p0, p1)
-      if dist < minimum:
-        minimum = dist
+    shape = self.shapes[0]
+    minimum = 0
+    if shape is b2PolygonShape:
+      body_vertices = shape.vertices
+      temp = [self.body.GetWorldPoint(vertice) for vertice in body_vertices]
+      minimum = distance(target, temp[-1], temp[0])
+      for p0, p1 in zip(temp[:-1:1], temp[1::1]):
+        dist = distance(target, p0, p1)
+        if dist < minimum:
+          minimum = dist
     return minimum
 
 

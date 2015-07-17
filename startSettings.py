@@ -1,6 +1,7 @@
 from operator import itemgetter
 import xml.etree.ElementTree as ET
 
+
 def get_points_from_xml(element_name, root_element):
   points = []
   element = root_element.find(element_name)
@@ -9,7 +10,7 @@ def get_points_from_xml(element_name, root_element):
   return points
 
 
-def get_points_from_xml_by_element(element):
+def get_polygon_from_xml(element):
   points = []
   for point in element.findall('point'):
     points.append((float(point[0].text), float(point[1].text)))
@@ -17,19 +18,76 @@ def get_points_from_xml_by_element(element):
 
 
 def get_point_from_xml(element_name, root_element):
-  point = root_element.find(element_name)[0]
+  point = root_element.find(element_name)
   return (float(point[0].text), float(point[1].text))
 
 
-def get_polygons_from_xml(element_name, root_element):
-  polygons = []
+class Circle(object):
+  
+  def __init__(self, radius=0, pos=(0, 0)):
+    self.radius = radius
+    self.pos = pos
+
+
+def get_circle_from_xml(circle):
+  return Circle(
+      float(circle.find('radius').text), 
+      get_point_from_xml('position', circle)
+      )
+  
+
+def get_objects_from_xml(element_name, subelement_name, root_element, handler):
+  objects = []
   element = root_element.find(element_name)
-  for polygon in element.findall('polygon'):
-    polygons.append(get_points_from_xml_by_element(polygon))
-  return polygons
+  if element != None:
+    for subelement in element.findall(subelement_name):
+      objects.append(handler(subelement))
+  return objects
 
 
-class GroundSettings():
+def get_param(element_name, root_element, default_value):
+  element = root_element.find(element_name)
+  if element == None:
+    return default_value
+  else:
+    return element.text
+
+
+class BodySettings(object):
+
+  def __init__(self, body):
+    self.lin_velocity_amplitude = float(get_param('lin_velocity_amplitude', body, 0))
+    self.lin_velocity_angle = float(get_param('lin_velocity_angle', body, 0))
+    self.angular_velocity = float(get_param('angular_velocity', body, 0))
+    self.angle = float(get_param('angle', body, 0))
+    self.circles = get_objects_from_xml(
+        'circles', 'circle', body, 
+        get_circle_from_xml
+        )
+    self.polygons = get_objects_from_xml(
+        'polygons', 'polygon', body,
+        get_polygon_from_xml
+        )
+    self.position = get_point_from_xml('position', body)
+
+
+def get_bodies_from_xml(element_name, root_element):
+  bodies = []
+  element = root_element.find(element_name)
+  for body in element.findall('body'):
+    bodies.append(BodySettings(body))
+  return bodies
+
+
+class TargetSettings(object):
+
+  def __init__(self, target):
+    self.target_point = get_point_from_xml('target_point', target) 
+    self.target_position = get_point_from_xml('target_position', target) 
+    self.bodies = get_bodies_from_xml('bodies', target)
+
+
+class GroundSettings(object):
 
   def __init__(self, root_element):
     self.points = get_points_from_xml('vertices', root_element)
@@ -47,7 +105,17 @@ class GroundSettings():
     return self.bottom
 
 
-class StartSettings():
+class ModelSettings(object):
+
+  def __init__(self, model):
+    self.velocity_iterations = int(model.find('velocity_iterations').text)
+    self.position_iterations = int(model.find('position_iterations').text)
+    self.hz = float(model.find('hz').text)
+    self.epsilon_lin_velocity = float(model.find('epsilon_lin_velocity').text)
+    self.g = float(model.find('g').text)
+
+
+class StartSettings(object):
 
   def __init__(self, filename='INPUT.dat'):
     self.getFromXML(filename)
@@ -57,24 +125,13 @@ class StartSettings():
     root = tree.getroot()
 
     model = root.find('model')
-    self.velocity_iterations = int(model.find('velocity_iterations').text)
-    self.position_iterations = int(model.find('position_iterations').text)
-    self.hz = float(model.find('hz').text)
-    self.epsilon_lin_velocity = float(model.find('epsilon_lin_velocity').text)
-    self.g = float(model.find('g').text)
+    self.model_settings = ModelSettings(model)
 
     ground = root.find('ground')
     self.ground_settings = GroundSettings(ground)
 
-    body = root.find('body')
-    self.lin_velocity_amplitude = float(body.find('lin_velocity_amplitude').text)
-    self.lin_velocity_angle = float(body.find('lin_velocity_angle').text)
-    self.angular_velocity = float(body.find('angular_velocity').text)
-    self.angle = float(body.find('angle').text)
-    self.position = get_point_from_xml('position', body)
-    self.geometry = get_points_from_xml('geometry', body)
+    body = root.find('projectile')
+    self.projectile_settings = BodySettings(body)
 
     target = root.find('target')
-    self.target_point = get_point_from_xml('target_point', target) 
-    self.target_position = get_point_from_xml('target_position', target) 
-    self.polygons = get_polygons_from_xml('polygons', target) 
+    self.target_settings = TargetSettings(target)

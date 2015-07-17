@@ -40,4 +40,4 @@ else:
 
     def run(self):
       while not self.finalized:
-        self.Step(self.start_settings)
+        self.Step(self.start_settings.model_settings)

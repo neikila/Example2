@@ -1,4 +1,5 @@
 *.swp
 *.pyc
 *~
+OUTPUT.dat
 out/
