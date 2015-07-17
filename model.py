@@ -26,21 +26,6 @@ def indent(elem, level=0):
       elem.tail = i
 
 
-# p, p0, p1 - b2Vec2; p0, p1 - segment
-def distance(p, p0, p1):
-  v = p1 - p0
-  w = p - p0
-  c1 = w.dot(v)
-  if c1 <= 0:
-    return (p - p0).lengthSquared
-  c2 = v.dot(v)
-  if c2 <= c1:
-    return (p - p1).lengthSquared
-  b = c1 / c2 
-  h = p0 + b * v
-  return (p - h).lengthSquared
-
-
 def create_not_cycled_chain_shape(points):
   shapes = []
   for p1, p2 in zip(points[:-1:1], points[1::1]):
@@ -72,7 +57,7 @@ def create_shapes(body):
 class Throwable(Simulation):
   iteration_number = 0
 
-  def save_iteration_in_xml_tree(self, distance):
+  def save_iteration_in_xml_tree(self):
     iteration = ET.SubElement(self.trajectory, "iteration")
     iteration.set("num", str(self.iteration_number))
 
@@ -83,18 +68,9 @@ class Throwable(Simulation):
     
     y = ET.SubElement(iteration, "y")
     y.text = str(center.y)
-    
-    distance_element = ET.SubElement(iteration, "distance")
-    distance_element.text = str(distance)
 
-  def save_final_state(self, distance):
+  def save_final_state(self):
     result = ET.SubElement(self.result_tree, "result")
-
-    distance_element = ET.SubElement(result, "distance")
-    distance_element.text = str(distance)
-
-    min_distance_element = ET.SubElement(result, "min_distance")
-    min_distance_element.text = str(self.min_distance)
 
     mass = ET.SubElement(result, "mass")
     mass.text = str(self.mass_data.mass)
@@ -136,7 +112,11 @@ class Throwable(Simulation):
     for target in sett.targets:
       target_position = target.target_position
       for body in target.bodies:
-        target = self.world.CreateDynamicBody(
+        if body.is_dynamic == True:
+          func = self.world.CreateDynamicBody
+        else:
+          func = self.world.CreateStaticBody
+        target = func(
               position=(
                 target_position[0] + body.position[0],
                 target_position[1] + body.position[1]
@@ -152,7 +132,6 @@ class Throwable(Simulation):
                   math.sin(body.lin_velocity_angle)
                 )
             )
-    self.target = b2Vec2((10, 10))
 
     # Body
     body = sett.projectile_settings
@@ -176,8 +155,6 @@ class Throwable(Simulation):
     # Create output xml tree
     self.result_tree = ET.Element("data")
     self.trajectory = ET.SubElement(self.result_tree, "trajectory")
-    self.min_distance = self.distance_to_target(self.target)
-    self.save_iteration_in_xml_tree(self.min_distance)
     self.finalized = False
 
 
@@ -188,19 +165,13 @@ class Throwable(Simulation):
     self.step_world(settings)
     
     self.iteration_number += 1
-    distance = self.distance_to_target(self.target)
-    if self.min_distance > distance:
-      self.min_distance = distance
     if self.iteration_number % 4 == 0 and self.finalized == False:
-      self.save_iteration_in_xml_tree(distance)
+      self.save_iteration_in_xml_tree()
     self.is_finished()
 
   # Actions to do in the end
   def finalize(self):
     if self.finalized == False:
-      distance = self.distance_to_target(self.target)
-      self.save_iteration_in_xml_tree(distance)
-      self.save_final_state(distance)
       indent(self.result_tree)
       tree = ET.ElementTree(self.result_tree)
       tree.write('OUTPUT.dat')
@@ -223,19 +194,6 @@ class Throwable(Simulation):
       if velocity.lengthSquared < accuracy ** 2:
         print "Too slow"
         self.finalize()
-
-  def distance_to_target(self, target):
-    shape = self.shapes[0]
-    minimum = 0
-    if shape is b2PolygonShape:
-      body_vertices = shape.vertices
-      temp = [self.body.GetWorldPoint(vertice) for vertice in body_vertices]
-      minimum = distance(target, temp[-1], temp[0])
-      for p0, p1 in zip(temp[:-1:1], temp[1::1]):
-        dist = distance(target, p0, p1)
-        if dist < minimum:
-          minimum = dist
-    return minimum
 
 
 if __name__=="__main__":

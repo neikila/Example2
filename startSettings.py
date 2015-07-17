@@ -78,6 +78,7 @@ class BodySettings(object):
     self.lin_velocity_amplitude = float(get_param('lin_velocity_amplitude', body, 0))
     self.lin_velocity_angle = float(get_param('lin_velocity_angle', body, 0))
     self.angular_velocity = float(get_param('angular_velocity', body, 0))
+    self.is_dynamic = get_param('is_dynamic', body, 'True') == 'True'
     self.angle = float(get_param('angle', body, 0))
     shape = body.find('shape')
     self.circles = get_objects_from_xml(
@@ -106,7 +107,6 @@ def get_bodies_from_xml(element_name, root_element):
 class TargetSettings(object):
 
   def __init__(self, target):
-    self.target_point = get_point_from_xml('target_point', target) 
     self.target_position = get_point_from_xml('target_position', target) 
     self.bodies = get_bodies_from_xml('bodies', target)
 
