@@ -10,9 +10,9 @@ def get_points_from_xml(element_name, root_element):
   return points
 
 
-def get_polygon_from_xml(element):
+def get_polygon_from_xml(polygon):
   points = []
-  for point in element.findall('point'):
+  for point in polygon.findall('point'):
     points.append((float(point[0].text), float(point[1].text)))
   return points
 
@@ -21,6 +21,25 @@ def get_point_from_xml(element_name, root_element):
   point = root_element.find(element_name)
   return (float(point[0].text), float(point[1].text))
 
+
+def get_rectangle_from_xml(rectangle):
+  points_el = rectangle.findall('point')
+  polygon = []
+  if len(points_el) != 0:
+    p1 = (float(points_el[0][0].text), float(points_el[0][1].text))
+    p2 = (float(points_el[1][0].text), float(points_el[1][1].text))
+    polygon.append(p1)
+    polygon.append((p1[0], p2[1]))
+    polygon.append(p2)
+    polygon.append((p2[0], p1[1]))
+  else:
+    width = float(rectangle.find('width').text)
+    height = float(rectangle.find('height').text)
+    polygon.append((0    , 0     ))
+    polygon.append((width, 0     ))
+    polygon.append((0    , height))
+    polygon.append((width, height))
+  return polygon
 
 class Circle(object):
   
@@ -60,13 +79,18 @@ class BodySettings(object):
     self.lin_velocity_angle = float(get_param('lin_velocity_angle', body, 0))
     self.angular_velocity = float(get_param('angular_velocity', body, 0))
     self.angle = float(get_param('angle', body, 0))
+    shape = body.find('shape')
     self.circles = get_objects_from_xml(
-        'circles', 'circle', body, 
+        'circles', 'circle', shape, 
         get_circle_from_xml
         )
     self.polygons = get_objects_from_xml(
-        'polygons', 'polygon', body,
+        'polygons', 'polygon', shape,
         get_polygon_from_xml
+        )
+    self.polygons += get_objects_from_xml(
+        'rectangles', 'rectangle', shape,
+        get_rectangle_from_xml
         )
     self.position = get_point_from_xml('position', body)
 
@@ -133,5 +157,7 @@ class StartSettings(object):
     body = root.find('projectile')
     self.projectile_settings = BodySettings(body)
 
-    target = root.find('target')
-    self.target_settings = TargetSettings(target)
+    targets = root.find('targets').findall('target')
+    self.targets = []
+    for target in targets:
+      self.targets.append(TargetSettings(target))

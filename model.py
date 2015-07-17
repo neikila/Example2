@@ -132,25 +132,26 @@ class Throwable(Simulation):
           shapes=create_not_cycled_chain_shape(sett.ground_settings.points)
         )
 
-    target_position = sett.target_settings.target_position
-    # Target
-    for body in sett.target_settings.bodies:
-      target = self.world.CreateDynamicBody(
-            position=(
-              target_position[0] + body.position[0],
-              target_position[1] + body.position[1]
-              ),
-            angle=body.angle,
-            shapes=create_shapes(body),
-            shapeFixture=b2FixtureDef(density=1),
-            angularVelocity=body.angular_velocity,
-            linearVelocity=(
-                body.lin_velocity_amplitude *
-                math.cos(body.lin_velocity_angle),
-                body.lin_velocity_amplitude *
-                math.sin(body.lin_velocity_angle)
-              )
-          )
+    # Targets
+    for target in sett.targets:
+      target_position = target.target_position
+      for body in target.bodies:
+        target = self.world.CreateDynamicBody(
+              position=(
+                target_position[0] + body.position[0],
+                target_position[1] + body.position[1]
+                ),
+              angle=body.angle,
+              shapes=create_shapes(body),
+              shapeFixture=b2FixtureDef(density=1),
+              angularVelocity=body.angular_velocity,
+              linearVelocity=(
+                  body.lin_velocity_amplitude *
+                  math.cos(body.lin_velocity_angle),
+                  body.lin_velocity_amplitude *
+                  math.sin(body.lin_velocity_angle)
+                )
+            )
     self.target = b2Vec2((10, 10))
 
     # Body
@@ -213,7 +214,7 @@ class Throwable(Simulation):
       right = self.start_settings.ground_settings.get_right()
       bottom = self.start_settings.ground_settings.get_bottom()
      
-      if pos[0] < left[0] or pos[0] > right[0] or pos[1] < bottom[1]:
+      if pos[0] < left[0] or pos[0] > right[0] or int(pos[1]) < int(bottom[1]):
         print "Object is out of field"
         self.finalize()
       
