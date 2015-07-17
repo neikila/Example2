@@ -135,8 +135,6 @@ class Throwable(Simulation):
             )
         if body.is_target == True:
           self.targets.append(block)
-    for body in self.targets:
-      print body
 
     # Projectile
     body = sett.projectile_settings
