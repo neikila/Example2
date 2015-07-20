@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <data>
     <model>
-        <epsilon_lin_velocity>0.000001</epsilon_lin_velocity>
+        <epsilon_lin_velocity>0.001</epsilon_lin_velocity>
         <velocity_iterations>8</velocity_iterations>
         <position_iterations>3</position_iterations> 
         <hz>60</hz>                            
@@ -67,6 +67,8 @@
         <lin_velocity_amplitude>19</lin_velocity_amplitude>
         <lin_velocity_angle>0.7</lin_velocity_angle>
         <angular_velocity>-2</angular_velocity>
+        <material_type>projectile</material_type>
+        <is_projectile>True</is_projectile>
         <position>
             <x>-20</x>
             <y>20</y>

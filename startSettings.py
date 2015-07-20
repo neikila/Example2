@@ -74,17 +74,18 @@ def get_param(element_name, root_element, default_value):
 
 class Material(object):
   
-  def __init__(self, name, impulse_scale, color):
+  def __init__(self, name, impulse_scale, color, price):
     self.name = name
     self.impulse_scale = impulse_scale
     self.color = color
+    self.price = price
 
 class MaterialBank(object):
   materials = []
-  materials.append(Material('default', 0.2, (0, 0, 0)))
-  materials.append(Material('wood', 0.7, (100, 100, 100)))
-  materials.append(Material('metal', 0.3, (100, 100, 100)))
-  materials.append(Material('projectile', 1, (100, 100, 100)))
+  materials.append(Material('default', 0.2, (0, 0, 0), 50))
+  materials.append(Material('wood', 0.7, (100, 100, 100), 20))
+  materials.append(Material('metal', 0.3, (100, 100, 100), 40))
+  materials.append(Material('projectile', 0, (100, 100, 100), 10000))
 
   @staticmethod
   def get_material_by_name(name):
@@ -115,8 +116,10 @@ class BodySettings(object):
     self.position = get_point_from_xml('position', body)
     self.is_dynamic = get_param('is_dynamic', body, 'True') == 'True'
     self.is_target = get_param('is_target', body, 'False') == 'True'
+    self.is_projectile = get_param('is_projectile', body, 'False') == 'True'
     self.health = float(get_param('health', body, 100))
     self.material_type = MaterialBank.get_material_by_name(get_param('material_type', body, 'default'))
+    self.price = float(get_param('price', body, MaterialBank.materials[self.material_type].price))
 
 
 def get_bodies_from_xml(element_name, root_element):
