@@ -237,6 +237,7 @@
                         <y>17</y>
                     </position>
                     <is_target>True</is_target>
+                    <material_type>wood</material_type>
                     <shape>
                         <rectangles>
                             <rectangle>
@@ -307,6 +308,7 @@
                         <y>11</y>
                     </position>
                     <is_target>True</is_target>
+                    <material_type>wood</material_type>
                     <shape>
                         <rectangles>
                             <rectangle>
@@ -431,6 +433,7 @@
                         <y>11</y>
                     </position>
                     <is_target>True</is_target>
+                    <material_type>wood</material_type>
                     <shape>
                         <rectangles>
                             <rectangle>

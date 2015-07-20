@@ -25,10 +25,39 @@ if namespace.visualised:
 
 else:
   from Box2D import *
-  class Simulation(object):
-    
+  class fwDestructionListener(b2DestructionListener):
+    """
+    The destruction listener callback:
+    "SayGoodbye" is called when a joint or shape is deleted.
+    """
+    test = None
+    def __init__(self, **kwargs):
+      super(fwDestructionListener, self).__init__(**kwargs)
+
+    def SayGoodbye(self, object):
+      if isinstance(object, b2Joint):
+        if self.test.mouseJoint==object:
+          self.test.mouseJoint=None
+        else:
+          self.test.JointDestroyed(object)
+      elif isinstance(object, b2Fixture):
+        self.test.FixtureDestroyed(object)
+        
+
+  class Simulation(b2ContactListener):
+
+    def FixtureDestroyed(self, fixture):
+      pass
+
+    def JointDestroyed(self, joint):
+      pass
+
     def init_world(self):
+      super(Simulation, self).__init__()
       self.world = b2World(gravity=(0,-10), doSleep=True)
+      self.destructionListener = fwDestructionListener(test=self)
+      self.world.destructionListener = self.destructionListener
+      self.world.contactListener = self
 
     def step_world(self, settings):
       timeStep = 1.0 / settings.hz

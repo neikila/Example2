@@ -72,13 +72,32 @@ def get_param(element_name, root_element, default_value):
     return element.text
 
 
+class Material(object):
+  
+  def __init__(self, name, impulse_scale, color):
+    self.name = name
+    self.impulse_scale = impulse_scale
+    self.color = color
+
+class MaterialBank(object):
+  materials = []
+  materials.append(Material('default', 0.2, (0, 0, 0)))
+  materials.append(Material('wood', 0.7, (100, 100, 100)))
+  materials.append(Material('metal', 0.3, (100, 100, 100)))
+  materials.append(Material('projectile', 1, (100, 100, 100)))
+
+  @staticmethod
+  def get_material_by_name(name):
+    for material in MaterialBank.materials:
+      if material.name == name:
+        return MaterialBank.materials.index(material)
+
 class BodySettings(object):
 
   def __init__(self, body):
     self.lin_velocity_amplitude = float(get_param('lin_velocity_amplitude', body, 0))
     self.lin_velocity_angle = float(get_param('lin_velocity_angle', body, 0))
     self.angular_velocity = float(get_param('angular_velocity', body, 0))
-    self.is_dynamic = get_param('is_dynamic', body, 'True') == 'True'
     self.angle = float(get_param('angle', body, 0))
     shape = body.find('shape')
     self.circles = get_objects_from_xml(
@@ -94,7 +113,10 @@ class BodySettings(object):
         get_rectangle_from_xml
         )
     self.position = get_point_from_xml('position', body)
+    self.is_dynamic = get_param('is_dynamic', body, 'True') == 'True'
     self.is_target = get_param('is_target', body, 'False') == 'True'
+    self.health = float(get_param('health', body, 100))
+    self.material_type = MaterialBank.get_material_by_name(get_param('material_type', body, 'default'))
 
 
 def get_bodies_from_xml(element_name, root_element):

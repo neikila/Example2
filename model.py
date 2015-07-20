@@ -5,7 +5,7 @@ import math
 
 import xml.etree.ElementTree as ET
 
-from startSettings import StartSettings
+from startSettings import *
 from simulation import *
 import drawer
 
@@ -110,6 +110,7 @@ class Throwable(Simulation):
 
     # Blocks
     self.targets = []
+    self.decorations = []
     for block in sett.blocks:
       block_position = block.block_position
       for body in block.bodies:
@@ -133,8 +134,12 @@ class Throwable(Simulation):
                   math.sin(body.lin_velocity_angle)
                 )
             )
+        block.health = body.health;
+        block.material_type = body.material_type
         if body.is_target == True:
           self.targets.append(block)
+        else:
+          self.decorations.append(block)
 
     # Projectile
     body = sett.projectile_settings
@@ -152,6 +157,8 @@ class Throwable(Simulation):
               math.sin(body.lin_velocity_angle)
             )
         )
+    self.body.health = body.health;
+    self.body.material_type = body.material_type
     self.fixtures = self.body.fixtures
     self.mass_data = b2MassData()
 
@@ -160,6 +167,29 @@ class Throwable(Simulation):
     self.trajectory = ET.SubElement(self.result_tree, "trajectory")
     self.finalized = False
 
+  def reduce_health(self, body, impulse):
+    impulse_sum = sum(impulse.normalImpulses)
+    if impulse_sum > 10:
+      before = body.health
+      body.health -= MaterialBank.materials[body.material_type].impulse_scale * impulse_sum
+      print "{} = {} - {}".format(body.health,
+          before, MaterialBank.materials[body.material_type].impulse_scale * impulse_sum)
+
+  def analyze_body(self, body, opposite_body, impulse):
+    body_extended = None
+    if body in self.targets:
+      index = self.targets.index(body)
+      body_extended = self.targets[index]
+    if body in self.decorations:
+      index = self.decorations.index(body)
+      body_extended = self.decorations[index]
+
+    if body_extended != None:
+      self.reduce_health(body_extended, impulse)
+
+  def PostSolve(self, contact, impulse): 
+    self.analyze_body(contact.fixtureA.body, contact.fixtureB.body, impulse)
+    self.analyze_body(contact.fixtureB.body, contact.fixtureA.body, impulse)
 
   def Keyboard(self, key):
     pass
@@ -171,6 +201,8 @@ class Throwable(Simulation):
     if self.iteration_number % 4 == 0 and self.finalized == False:
       self.save_iteration_in_xml_tree()
     self.is_finished()
+    self.check_health(self.targets)
+    self.check_health(self.decorations)
 
   # Actions to do in the end
   def finalize(self):
@@ -180,6 +212,12 @@ class Throwable(Simulation):
       tree.write('OUTPUT.dat')
       self.finalized = True
      
+  def check_health(self, array):
+    for el in array:
+      if el.health < 0:
+        array.remove(el)
+        self.world.DestroyBody(el)
+
   # Should modelling be stopped
   def is_finished(self):
     if self.finalized == False:
