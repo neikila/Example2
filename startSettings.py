@@ -80,18 +80,18 @@ class Material(object):
     self.color = color
     self.price = price
 
-class MaterialBank(object):
+class MaterialLibrary(object):
   materials = []
-  materials.append(Material('default', 0.2, (0, 0, 0), 50))
-  materials.append(Material('wood', 0.7, (100, 100, 100), 20))
-  materials.append(Material('metal', 0.3, (100, 100, 100), 40))
+  materials.append(Material('default', 0.2, (0, 0, 0), 5))
+  materials.append(Material('wood', 0.7, (100, 100, 100), 2))
+  materials.append(Material('metal', 0.3, (100, 100, 100), 4))
   materials.append(Material('projectile', 0, (100, 100, 100), 10000))
 
   @staticmethod
   def get_material_by_name(name):
-    for material in MaterialBank.materials:
+    for material in MaterialLibrary.materials:
       if material.name == name:
-        return MaterialBank.materials.index(material)
+        return MaterialLibrary.materials.index(material)
 
 class BodySettings(object):
 
@@ -118,8 +118,8 @@ class BodySettings(object):
     self.is_target = get_param('is_target', body, 'False') == 'True'
     self.is_projectile = get_param('is_projectile', body, 'False') == 'True'
     self.health = float(get_param('health', body, 100))
-    self.material_type = MaterialBank.get_material_by_name(get_param('material_type', body, 'default'))
-    self.price = float(get_param('price', body, MaterialBank.materials[self.material_type].price))
+    self.material_type = MaterialLibrary.get_material_by_name(get_param('material_type', body, 'default'))
+    self.price = float(get_param('price', body, MaterialLibrary.materials[self.material_type].price))
 
 
 def get_bodies_from_xml(element_name, root_element):

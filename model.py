@@ -7,7 +7,7 @@ import xml.etree.ElementTree as ET
 
 from startSettings import *
 from simulation import *
-import drawer
+from drawer import *
 
 
 def indent(elem, level=0):
@@ -88,7 +88,7 @@ class Throwable(Simulation):
       angular_velocity.text = str(body.angularVelocity)
 
       material_type = ET.SubElement(body_el, "material_type")
-      material_type.text = MaterialBank.materials[body.material_type].name
+      material_type.text = MaterialLibrary.materials[body.material_type].name
 
       is_projectile = ET.SubElement(body_el, "is_projectile")
       is_projectile.text = str(False)
@@ -145,6 +145,10 @@ class Throwable(Simulation):
           
           radius = ET.SubElement(circle, "radius")
           radius.text = str(shape.radius)
+
+    result = ET.SubElement(self.result_tree, "result")
+    score = ET.SubElement(result, "score")
+    score.text = str(self.score)
 
 
   def convert_body_settings_to_body(self, body, offset=(0, 0)):
@@ -212,15 +216,22 @@ class Throwable(Simulation):
     # Function
     self.score = 0
 
+    # Drawer
+    self.app = QApplication([])
+    self.ex = WorldDrawer(self.start_settings, self)
+    self.ex.draw_image(0)
+    self.ex.save_image()
+
   def reduce_health(self, body, impulse):
     impulse_sum = sum(impulse.normalImpulses)
     if impulse_sum > 10:
       before = body.health
-      reduction = MaterialBank.materials[body.material_type].impulse_scale * impulse_sum
+      reduction = MaterialLibrary.materials[body.material_type].impulse_scale * impulse_sum
+      reduction = min(reduction, body.health) 
       self.score += body.price * reduction
       body.health -= reduction
       #print "{} = {} - {}".format(body.health,
-          #before, MaterialBank.materials[body.material_type].impulse_scale * impulse_sum)
+          #before, MaterialLibrary.materials[body.material_type].impulse_scale * impulse_sum)
 
   def analyze_body(self, body, opposite_body, impulse):
     body_extended = None
@@ -244,6 +255,9 @@ class Throwable(Simulation):
     self.step_world(settings)
     
     self.iteration_number += 1
+    if self.iteration_number % 25 == 0:
+      self.ex.draw_image(self.iteration_number / 25)
+      self.ex.save_image()
     self.is_finished()
     self.check_health(self.bodies)
     self.check_health([self.body])
@@ -257,10 +271,11 @@ class Throwable(Simulation):
       tree.write('OUTPUT.dat')
       print "Score: {}".format(self.score)
       self.finalized = True
+
      
   def check_health(self, array):
     for el in array:
-      if el.health < 0:
+      if el.health <= 0:
         array.remove(el)
         self.world.DestroyBody(el)
 
