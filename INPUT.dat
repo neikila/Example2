@@ -118,6 +118,7 @@
                         <x>10</x>
                         <y>3</y>
                     </position>
+                    <material_type>metal</material_type>
                     <shape>
                         <circles>
                             <circle>
@@ -135,6 +136,7 @@
                         <x>6</x>
                         <y>3</y>
                     </position>
+                    <material_type>metal</material_type>
                     <shape>
                         <circles>
                             <circle>
@@ -152,6 +154,7 @@
                         <x>2</x>
                         <y>3</y>
                     </position>
+                    <material_type>metal</material_type>
                     <shape>
                         <circles>
                             <circle>
@@ -239,7 +242,7 @@
                         <y>17</y>
                     </position>
                     <is_target>True</is_target>
-                    <material_type>wood</material_type>
+                    <material_type>target</material_type>
                     <shape>
                         <rectangles>
                             <rectangle>
@@ -310,7 +313,7 @@
                         <y>11</y>
                     </position>
                     <is_target>True</is_target>
-                    <material_type>wood</material_type>
+                    <material_type>target</material_type>
                     <shape>
                         <rectangles>
                             <rectangle>
@@ -435,7 +438,7 @@
                         <y>11</y>
                     </position>
                     <is_target>True</is_target>
-                    <material_type>wood</material_type>
+                    <material_type>target</material_type>
                     <shape>
                         <rectangles>
                             <rectangle>

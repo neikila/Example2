@@ -82,10 +82,11 @@ class Material(object):
 
 class MaterialLibrary(object):
   materials = []
-  materials.append(Material('default', 0.2, (0, 0, 0), 5))
-  materials.append(Material('wood', 0.7, (100, 100, 100), 2))
-  materials.append(Material('metal', 0.3, (100, 100, 100), 4))
-  materials.append(Material('projectile', 0, (100, 100, 100), 10000))
+  materials.append(Material('default', 0.2, '#43a2ca', 5))
+  materials.append(Material('wood', 0.7, '#552e09', 2))
+  materials.append(Material('metal', 0.3, '#080e12', 4))
+  materials.append(Material('target', 0.5, '#d50000', 20))
+  materials.append(Material('projectile', 0, '#2b0892', 10000))
 
   @staticmethod
   def get_material_by_name(name):

@@ -255,7 +255,7 @@ class Throwable(Simulation):
     self.step_world(settings)
     
     self.iteration_number += 1
-    if self.iteration_number % 25 == 0:
+    if self.iteration_number % 10 == 0:
       self.ex.save_timestep()
     self.is_finished()
     self.check_health(self.bodies)
