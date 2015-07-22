@@ -8,6 +8,7 @@ import xml.etree.ElementTree as ET
 from startSettings import *
 from simulation import *
 from drawer import *
+from bokeh_drawer import *
 
 
 def indent(elem, level=0):
@@ -218,9 +219,8 @@ class Throwable(Simulation):
 
     # Drawer
     self.app = QApplication([])
-    self.ex = WorldDrawer(self.start_settings, self)
-    self.ex.draw_image(0)
-    self.ex.save_image()
+    self.ex = Drawer(self.start_settings, self)
+    self.ex.save_timestep()
 
   def reduce_health(self, body, impulse):
     impulse_sum = sum(impulse.normalImpulses)
@@ -256,8 +256,7 @@ class Throwable(Simulation):
     
     self.iteration_number += 1
     if self.iteration_number % 25 == 0:
-      self.ex.draw_image(self.iteration_number / 25)
-      self.ex.save_image()
+      self.ex.save_timestep()
     self.is_finished()
     self.check_health(self.bodies)
     self.check_health([self.body])
@@ -271,6 +270,8 @@ class Throwable(Simulation):
       tree.write('OUTPUT.dat')
       print "Score: {}".format(self.score)
       self.finalized = True
+      self.ex.create_html()
+      self.ex.show()
 
      
   def check_health(self, array):
