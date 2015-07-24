@@ -1,5 +1,6 @@
 from bokeh.io import vform
 from bokeh.models import Callback, ColumnDataSource, Slider
+from bokeh.models.widgets import Button
 from bokeh.plotting import figure, output_file, show
 from Box2D import * 
 from startSettings import *
@@ -63,6 +64,67 @@ class Drawer(object):
       -ground_set.get_bottom()[1] 
       )
 
+    self.js_code = """
+var cur_data = current.get('data');
+var all_data = all_polyg.get('data');
+var cur_circles = current_circles.get('data');
+var text_data = text.get('data')
+
+xs = cur_data['xs'];
+ys = cur_data['ys'];
+color = cur_data['color'];
+
+var rect_next_to_show = all_data['rects_timesteps'][num];
+n_xs = rect_next_to_show['xs'];
+n_ys = rect_next_to_show['ys'];
+n_color = rect_next_to_show['color'];
+
+for (i = 0; i < n_xs.length; ++i) {
+  xs[i] = n_xs[i];
+  ys[i] = n_ys[i];
+  color[i] = n_color[i];
+}
+
+delta = xs.length - n_xs.length;
+if (delta > 0) {
+  xs.splice(xs.length - delta, delta);
+  ys.splice(ys.length - delta, delta);
+  color.splice(color.length - delta, delta);
+}
+
+x = cur_circles['x']
+y = cur_circles['y']
+color = cur_circles['color']
+radius = cur_circles['radius']
+
+var circles_next_to_show = all_data['circles_timesteps'][num];
+n_x = circles_next_to_show['x'];
+n_y = circles_next_to_show['y'];
+n_color = circles_next_to_show['color'];
+n_radius = circles_next_to_show['radius'];
+
+for (i = 0; i < n_x.length; ++i) {
+  x[i] = n_x[i];
+  y[i] = n_y[i];
+  color[i] = n_color[i];
+  radius[i] = n_radius[i];
+}
+
+delta = x.length - n_x.length;
+if (delta > 0) {
+  x.splice(x.length - delta, delta);
+  y.splice(y.length - delta, delta);
+  color.splice(color.length - delta, delta);
+  radius.splice(radius.length - delta, delta);
+}
+
+text_data['score'][0] = 'Score ' + all_data['score'][num]
+
+current.trigger('change');
+current_circles.trigger('change');
+text.trigger('change');
+"""
+
   def get_trajectory_zero_point(self):
     return b2Vec2(
       self.local_zero_point.x,
@@ -114,70 +176,13 @@ class Drawer(object):
           text=text
           ), 
         code="""
-        var cur_data = current.get('data');
-        var all_data = all_polyg.get('data');
-        var cur_circles = current_circles.get('data');
-        var text_data = text.get('data')
         var num = cb_obj.get('value');
- 
-        xs = cur_data['xs'];
-        ys = cur_data['ys'];
-        color = cur_data['color'];
- 
-        var rect_next_to_show = all_data['rects_timesteps'][num];
-        n_xs = rect_next_to_show['xs'];
-        n_ys = rect_next_to_show['ys'];
-        n_color = rect_next_to_show['color'];
- 
-        for (i = 0; i < n_xs.length; ++i) {
-          xs[i] = n_xs[i];
-          ys[i] = n_ys[i];
-          color[i] = n_color[i];
-        }
-
-        delta = xs.length - n_xs.length;
-        if (delta > 0) {
-          xs.splice(xs.length - delta, delta);
-          ys.splice(ys.length - delta, delta);
-          color.splice(color.length - delta, delta);
-        }
-
-        x = cur_circles['x']
-        y = cur_circles['y']
-        color = cur_circles['color']
-        radius = cur_circles['radius']
- 
-        var circles_next_to_show = all_data['circles_timesteps'][num];
-        n_x = circles_next_to_show['x'];
-        n_y = circles_next_to_show['y'];
-        n_color = circles_next_to_show['color'];
-        n_radius = circles_next_to_show['radius'];
-
-        for (i = 0; i < n_x.length; ++i) {
-          x[i] = n_x[i];
-          y[i] = n_y[i];
-          color[i] = n_color[i];
-          radius[i] = n_radius[i];
-        }
-
-        delta = x.length - n_x.length;
-        if (delta > 0) {
-          x.splice(x.length - delta, delta);
-          y.splice(y.length - delta, delta);
-          color.splice(color.length - delta, delta);
-          radius.splice(radius.length - delta, delta);
-        }
-
-        text_data['score'][0] = 'Score ' + all_data['score'][num]
-
-        current.trigger('change');
-        current_circles.trigger('change');
-        text.trigger('change');
-        """)
+        """ + self.js_code)
  
     slider = Slider(start=0, end=len(self.all_bodies['rects_timesteps']) - 1,
         value=0, step=1,
         title="Iteration number", callback=callback)
+    slider_id = '' + str(slider.vm_serialize()['id'])
  
     p = figure(
         plot_width=int(self.width), plot_height=int(self.height),
@@ -185,13 +190,40 @@ class Drawer(object):
         tools="", title="Watch Here"
         )
  
+    button_callback = Callback(
+        args=dict(
+          current=current_polyg,
+          current_circles=current_circles, 
+          all_polyg=all_polyg,
+          text=text
+          ), 
+        code="""
+console.log("Start");
+var num = 0.0;
+var slider_id = '""" + slider_id + """'
+var amount_of_iterations = """ + str(len(self.all_bodies['rects_timesteps'])) + """; 
+intervalID = setInterval(function () {
+  """ + self.js_code + """
+
+  Bokeh.$('div #' + slider_id).val(Math.floor(num));
+  Bokeh.$('div #' + slider_id + ' :first-child').css('left', num / (amount_of_iterations - 1) * 100 + '%')
+
+  num += 1.0
+  if (num > (amount_of_iterations - 1)) {
+    window.clearInterval(intervalID);
+    console.log("Finally")
+  }
+}, Math.floor(1000.0 / 6));
+return false;
+""")
+    button = Button(label="Play", type="success", callback=button_callback)
     p.patches('xs', 'ys', color='color', source=current_polyg)
     p.circle('x', 'y', radius='radius', color='color', source=current_circles)
     p.text(1, int(self.model_size['y']) - 3, text='score', alpha=5,
         text_font_size="15pt", text_baseline="middle", text_align="left",
         source=text)
 
-    self.layout = vform(slider, p)
+    self.layout = vform(button, slider, p)
 
   def show(self):
     show(self.layout)
