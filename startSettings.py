@@ -41,6 +41,7 @@ def get_rectangle_from_xml(rectangle):
     polygon.append((width, height))
   return polygon
 
+
 class Circle(object):
   
   def __init__(self, radius=0, pos=(0, 0)):
@@ -80,23 +81,28 @@ class Material(object):
     self.color = color
     self.price = price
 
-class MaterialLibrary(object):
-  materials = []
-  materials.append(Material('default', 0.2, '#43a2ca', 5))
-  materials.append(Material('wood', 0.7, '#552e09', 2))
-  materials.append(Material('metal', 0.3, '#080e12', 4))
-  materials.append(Material('target', 0.5, '#d50000', 20))
-  materials.append(Material('projectile', 0, '#2b0892', 10000))
 
-  @staticmethod
-  def get_material_by_name(name):
-    for material in MaterialLibrary.materials:
+class MaterialLibrary(object):
+
+  def __init__(self, materials):
+    self.materials = []
+    for material in materials.findall('material'):
+      self.materials.append(Material(
+            get_param('name', material, 'no_name'),
+            float(get_param('impulse_scale', material, '0')),
+            get_param('color', material, '#000000'),
+            float(get_param('price', material, 0))
+            ))
+
+  def get_material_by_name(self, name):
+    for material in self.materials:
       if material.name == name:
-        return MaterialLibrary.materials.index(material)
+        return self.materials.index(material)
+
 
 class BodySettings(object):
 
-  def __init__(self, body):
+  def __init__(self, body, material_library):
     self.lin_velocity_amplitude = float(get_param('lin_velocity_amplitude', body, 0))
     self.lin_velocity_angle = float(get_param('lin_velocity_angle', body, 0))
     self.angular_velocity = float(get_param('angular_velocity', body, 0))
@@ -119,23 +125,23 @@ class BodySettings(object):
     self.is_target = get_param('is_target', body, 'False') == 'True'
     self.is_projectile = get_param('is_projectile', body, 'False') == 'True'
     self.health = float(get_param('health', body, 100))
-    self.material_type = MaterialLibrary.get_material_by_name(get_param('material_type', body, 'default'))
-    self.price = float(get_param('price', body, MaterialLibrary.materials[self.material_type].price))
+    self.material_type = material_library.get_material_by_name(get_param('material_type', body, 'default'))
+    self.price = float(get_param('price', body, material_library.materials[self.material_type].price))
 
 
-def get_bodies_from_xml(element_name, root_element):
+def get_bodies_from_xml(element_name, root_element, material_library):
   bodies = []
   element = root_element.find(element_name)
   for body in element.findall('body'):
-    bodies.append(BodySettings(body))
+    bodies.append(BodySettings(body, material_library))
   return bodies
 
 
 class BlockSettings(object):
 
-  def __init__(self, block):
+  def __init__(self, block, material_library):
     self.block_position = get_point_from_xml('block_position', block) 
-    self.bodies = get_bodies_from_xml('bodies', block)
+    self.bodies = get_bodies_from_xml('bodies', block, material_library)
 
 
 class GroundSettings(object):
@@ -181,10 +187,13 @@ class StartSettings(object):
     ground = root.find('ground')
     self.ground_settings = GroundSettings(ground)
 
+    materials = root.find('materials')
+    self.material_library = MaterialLibrary(materials)
+
     body = root.find('projectile')
-    self.projectile_settings = BodySettings(body)
+    self.projectile_settings = BodySettings(body, self.material_library)
 
     blocks = root.find('blocks').findall('block')
     self.blocks = []
     for block in blocks:
-      self.blocks.append(BlockSettings(block))
+      self.blocks.append(BlockSettings(block, self.material_library))

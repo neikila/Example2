@@ -1,14 +1,13 @@
 rm -rf standAlone
 mkdir standAlone
 mkdir standAlone/out
-version=${1}
-if [ $# -eq 0 ] ; then
-  version=0
-fi
-echo version = $version
+
+cp framework.py standAlone/.
+cp bokeh_drawer.py standAlone/.
+cp INPUT.dat standAlone/.
 cp model.py standAlone/.
-cp drawer.py standAlone/.
-cp input_configs/INPUTv${version}.dat standAlone/INPUT.dat
 cp OUTPUT.dat standAlone/.
+cp pygame_framework.py standAlone/.
 cp simulation.py standAlone/.
 cp startSettings.py standAlone/.
+cp settings.py standAlone/.

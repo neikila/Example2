@@ -7,6 +7,16 @@ parser.add_argument(
         action='store_true', default=False, 
         help = 'visually modelling'
         )
+parser.add_argument(
+        '-ns', '--nosave', 
+        action='store_true', default=False, 
+        help = 'not saving html'
+        )
+parser.add_argument(
+        '-sh', '--show', 
+        action='store_true', default=False, 
+        help = 'in the end show html in browser'
+        )
 
 namespace = parser.parse_args()
 sys.argv = sys.argv[:1]
@@ -16,6 +26,7 @@ if namespace.visualised:
   class Simulation(Framework):
     name = "Throwable" # Name of the class to display
     description = "First example" 
+    namespace = namespace
 
     def init_world(self):
       super(Simulation, self).__init__()
@@ -45,6 +56,7 @@ else:
         
 
   class Simulation(b2ContactListener):
+    namespace = namespace
 
     def FixtureDestroyed(self, fixture):
       pass

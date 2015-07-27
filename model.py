@@ -7,7 +7,6 @@ import xml.etree.ElementTree as ET
 
 from startSettings import *
 from simulation import *
-from drawer import *
 from bokeh_drawer import *
 
 
@@ -89,7 +88,7 @@ class Throwable(Simulation):
       angular_velocity.text = str(body.angularVelocity)
 
       material_type = ET.SubElement(body_el, "material_type")
-      material_type.text = MaterialLibrary.materials[body.material_type].name
+      material_type.text = sett.material_library.materials[body.material_type].name
 
       is_projectile = ET.SubElement(body_el, "is_projectile")
       is_projectile.text = str(False)
@@ -218,7 +217,6 @@ class Throwable(Simulation):
     self.score = 0
 
     # Drawer
-    self.app = QApplication([])
     self.ex = Drawer(self.start_settings, self)
     self.ex.save_timestep()
 
@@ -226,12 +224,10 @@ class Throwable(Simulation):
     impulse_sum = sum(impulse.normalImpulses)
     if impulse_sum > 10:
       before = body.health
-      reduction = MaterialLibrary.materials[body.material_type].impulse_scale * impulse_sum
+      reduction = self.start_settings.material_library.materials[body.material_type].impulse_scale * impulse_sum
       reduction = min(reduction, body.health) 
       self.score += body.price * reduction
       body.health -= reduction
-      #print "{} = {} - {}".format(body.health,
-          #before, MaterialLibrary.materials[body.material_type].impulse_scale * impulse_sum)
 
   def analyze_body(self, body, opposite_body, impulse):
     body_extended = None
@@ -271,7 +267,10 @@ class Throwable(Simulation):
       print "Score: {}".format(self.score)
       self.finalized = True
       self.ex.create_html()
-      self.ex.show()
+      if not self.namespace.nosave:
+        self.ex.save()
+      if self.namespace.show:
+        self.ex.show()
 
      
   def check_health(self, array):

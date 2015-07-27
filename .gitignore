@@ -1,6 +1,7 @@
 *.swp
 *.pyc
 bokeh_examples/
+standAlone/
 *~
 OUTPUT.dat
 out/

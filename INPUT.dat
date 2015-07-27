@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <data>
     <model>
-        <epsilon_lin_velocity>0.001</epsilon_lin_velocity>
+        <epsilon_lin_velocity>0.01</epsilon_lin_velocity>
         <velocity_iterations>8</velocity_iterations>
         <position_iterations>3</position_iterations> 
         <hz>60</hz>                            
@@ -23,27 +23,39 @@
             </point>
             <point>
                 <x>-7</x>
-                <y>15</y>
+                <y>20</y>
+            </point>
+            <point>
+                <x>-6</x>
+                <y>23</y>
             </point>
             <point>
                 <x>-5</x>
-                <y>17</y>
+                <y>25</y>
             </point>
             <point>
-                <x>15</x>
-                <y>7</y>
+                <x>10</x>
+                <y>13</y>
+            </point>
+            <point>
+                <x>13</x>
+                <y>9</y>
+            </point>
+            <point>
+                <x>18</x>
+                <y>8</y>
             </point>
             <point>
                 <x>20</x>
-                <y>5</y>
+                <y>8</y>
             </point>
             <point>
-                <x>22</x>
-                <y>5</y>
+                <x>21</x>
+                <y>8</y>
             </point>
             <point>
                 <x>23</x>
-                <y>6</y>
+                <y>9</y>
             </point>
             <point>
                 <x>24</x>
@@ -54,24 +66,86 @@
                 <y>0</y>
             </point>
             <point>
+                <x>28</x>
+                <y>0</y>
+            </point>
+            <point>
+                <x>29</x>
+                <y>4</y>
+            </point>
+            <point>
+                <x>31</x>
+                <y>2</y>
+            </point>
+            <point>
+                <x>32</x>
+                <y>1</y>
+            </point>
+            <point>
+                <x>35</x>
+                <y>0</y>
+            </point>
+            <point>
                 <x>40</x>
                 <y>0</y>
             </point>
             <point>
-                <x>100</x>
+                <x>80</x>
                 <y>0</y>
+            </point>
+            <point>
+                <x>100</x>
+                <y>-5</y>
             </point>
         </vertices>
     </ground>
+    <materials>
+        <material>
+            <name>default</name>
+            <impulse_scale>0.2</impulse_scale>
+            <color>#43a2ca</color>
+            <price>5</price>
+        </material>
+        <material>
+            <name>wood</name>
+            <impulse_scale>0.7</impulse_scale>
+            <color>#552e09</color>
+            <price>2</price>
+        </material>
+        <material>
+            <name>metal</name>
+            <impulse_scale>0.05</impulse_scale>
+            <color>#080e12</color>
+            <price>4</price>
+        </material>
+        <material>
+            <name>target</name>
+            <impulse_scale>0.5</impulse_scale>
+            <color>#d50000</color>
+            <price>20</price>
+        </material>
+        <material>
+            <name>projectile</name>
+            <impulse_scale>0</impulse_scale>
+            <color>#2b0892</color>
+            <price>10000</price>
+        </material>
+        <material>
+            <name>unbreakable_metal</name>
+            <impulse_scale>0</impulse_scale>
+            <color>#080e00</color>
+            <price>10000</price>
+        </material>
+    </materials>
     <projectile>
-        <lin_velocity_amplitude>19</lin_velocity_amplitude>
-        <lin_velocity_angle>0.7</lin_velocity_angle>
-        <angular_velocity>-2</angular_velocity>
+        <lin_velocity_amplitude>22.46665571</lin_velocity_amplitude>
+        <lin_velocity_angle>1.0047267</lin_velocity_angle>
+        <angular_velocity>3.95428454</angular_velocity>
         <material_type>projectile</material_type>
         <is_projectile>True</is_projectile>
         <position>
-            <x>-20</x>
-            <y>20</y>
+            <x>-30</x>
+            <y>10</y>
         </position>
         <angle>0</angle>
         <shape>
@@ -89,13 +163,56 @@
     <blocks>
         <block>
             <description>
-                <!-- static -->
-                <total_height>6</total_height>
+                <!-- gorochka -->
+                <total_height>-4</total_height>
+                <total_width>10</total_width>
+            </description>
+            <block_position>
+                <x>30</x>
+                <y>28</y>
+            </block_position>
+            <bodies>
+                <body>
+                    <position>
+                        <x>0</x>
+                        <y>0</y>
+                    </position>
+                    <is_dynamic>False</is_dynamic>
+                    <material_type>unbreakable_metal</material_type>
+                    <shape>
+                        <polygons>
+                            <polygon>
+                                <point>
+                                    <x>0</x>
+                                    <y>0</y>
+                                </point>
+                                <point>
+                                    <x>0</x>
+                                    <y>-2</y>
+                                </point>
+                                <point>
+                                    <x>20</x>
+                                    <y>-4</y>
+                                </point>
+                                <point>
+                                    <x>20</x>
+                                    <y>-6</y>
+                                </point>
+                            </polygon>
+                        </polygons>
+                    </shape>
+                </body>
+            </bodies>
+        </block>
+        <block>
+            <description>
+                <!-- static, additional balls -->
+                <total_height>5</total_height>
                 <total_width>13</total_width>
             </description>
             <block_position>
-                <x>10</x>
-                <y>20</y>
+                <x>20</x>
+                <y>30</y>
             </block_position>
             <bodies>
                 <body>
@@ -167,6 +284,22 @@
                         </circles>
                     </shape>
                 </body>
+                <body>
+                    <position>
+                        <x>18</x>
+                        <y>6</y>
+                    </position>
+                    <is_dynamic>False</is_dynamic>
+                    <material_type>unbreakable_metal</material_type>
+                    <shape>
+                        <rectangles>
+                            <rectangle>
+                                <width>2</width>
+                                <height>16</height>
+                            </rectangle>
+                        </rectangles>
+                    </shape>
+                </body>
             </bodies>
         </block>
         <block>
@@ -176,7 +309,7 @@
                 <total_width>13</total_width>
             </description>
             <block_position>
-                <x>40</x>
+                <x>60</x>
                 <y>0</y>
             </block_position>
             <bodies>
@@ -261,7 +394,7 @@
                 <total_width>10</total_width>
             </description>
             <block_position>
-                <x>30</x>
+                <x>50</x>
                 <y>0</y>
             </block_position>
             <bodies>
@@ -386,7 +519,7 @@
                 <total_width>10</total_width>
             </description>
             <block_position>
-                <x>41</x>
+                <x>61</x>
                 <y>0</y>
             </block_position>
             <bodies>
