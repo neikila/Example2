@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <data>
     <model>
-        <epsilon_lin_velocity>0.01</epsilon_lin_velocity>
+        <epsilon_lin_velocity>0.001</epsilon_lin_velocity>
         <velocity_iterations>8</velocity_iterations>
         <position_iterations>3</position_iterations> 
         <hz>60</hz>                            
@@ -116,13 +116,13 @@
             <name>metal</name>
             <impulse_scale>0.05</impulse_scale>
             <color>#080e12</color>
-            <price>4</price>
+            <price>10</price>
         </material>
         <material>
             <name>target</name>
             <impulse_scale>0.5</impulse_scale>
             <color>#d50000</color>
-            <price>20</price>
+            <price>40</price>
         </material>
         <material>
             <name>projectile</name>
@@ -138,9 +138,9 @@
         </material>
     </materials>
     <projectile>
-        <lin_velocity_amplitude>22.46665571</lin_velocity_amplitude>
-        <lin_velocity_angle>1.0047267</lin_velocity_angle>
-        <angular_velocity>3.95428454</angular_velocity>
+        <lin_velocity_amplitude>36.7265453654</lin_velocity_amplitude>
+        <lin_velocity_angle>1.3653739636</lin_velocity_angle>
+        <angular_velocity>-3.79500698708</angular_velocity>
         <material_type>projectile</material_type>
         <is_projectile>True</is_projectile>
         <position>

@@ -17,11 +17,25 @@ parser.add_argument(
         action='store_true', default=False, 
         help = 'in the end show html in browser'
         )
+parser.add_argument(
+        '-l', '--limit', 
+        type=int, default=201
+        )
+parser.add_argument(
+        '-sz', '--size', 
+        type=int, default=1200
+        )
 
 namespace = parser.parse_args()
-sys.argv = sys.argv[:1]
 
 if namespace.visualised:
+  # This is for testing
+  # It requiers pybox2d testing scripts (https://github.com/pybox2d/pybox2d/tree/master/examples):
+  #  - pygame_framework.py
+  #  - framework.py
+  #  - settings.py
+
+  sys.argv = sys.argv[:1]
   from framework import *
   class Simulation(Framework):
     name = "Throwable" # Name of the class to display

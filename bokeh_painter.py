@@ -26,23 +26,17 @@ def points_to_dictionary(points, zero):
   return result
 
 
-class Drawer(object):
+class Painter(object):
 
-  def __init__(self, settings, model):
+  def __init__(self, settings, model, max_iteration, size):
+    self.max_iteration = max_iteration
+    self.width = size
+    self.height = size
+    self.len_before_redunction = max_iteration
     self.start_settings = settings
     self.model = model
 
     self.init()
-    self.all_bodies = {'rects_timesteps':[], 'circles_timesteps':[], 'score':[]}
-
-    ## For test only
-    #body1 = {'x':[1, 3, 5], 'y':[1, 3, 1]}
-    #body2 = {'x':[6, 8, 10], 'y':[2, 4, 2]}
-    #bodies = [body1, body2]
-    #append_rect_timestep(self.all_bodies, bodies)
-    
-    #circles = {'x':[3], 'y':[5], 'radius':[1.5], 'color':['#a1b2c3']}
-    #self.all_bodies['circles_timesteps'].append(circles)
 
   def get_model_size(self):
     sett = self.start_settings
@@ -54,10 +48,10 @@ class Drawer(object):
     return {'x': model_width, 'y': model_height}
 
   def init(self):
+    self.reduced = False
     self.directory_to_save = "out/"
-    self.width = 1600.0
-    self.height = 1600.0
     
+    # Adjusting size of pictire
     model_size = self.model_size = self.get_model_size()
     ground_set = self.start_settings.ground_settings
 
@@ -78,6 +72,9 @@ class Drawer(object):
       -ground_set.get_bottom()[1] 
       )
 
+    # Preparing dictionary for Bokeh
+    self.all_bodies = {'rects_timesteps':[], 'circles_timesteps':[], 'score':[]}
+    # Preparing js-callback for Bokeh
     self.js_code = """
 var cur_data = current.get('data');
 var all_data = all_polyg.get('data');
@@ -176,7 +173,10 @@ text.trigger('change');
     self.all_bodies['score'].append(str(int(self.model.score)))
     append_rect_timestep(self.all_bodies, polygons)
 
+
+
   def create_html(self):
+    self.reduce()
     temp = datetime.now()
     filename = temp.strftime("%y_%m_%d__%H_%M_%S_") + "{:0>6}".format(temp.microsecond) + ".html"
     output_file(self.directory_to_save + filename)
@@ -188,7 +188,7 @@ text.trigger('change');
     all_polyg = ColumnDataSource(data=self.all_bodies)
  
     current_circles = ColumnDataSource(data=self.all_bodies['circles_timesteps'][0])
-    callback = Callback(
+    slider_callback = Callback(
         args=dict(
           current=current_polyg,
           current_circles=current_circles, 
@@ -208,13 +208,13 @@ current_position.trigger('change');
  
     slider = Slider(start=0, end=len(self.all_bodies['rects_timesteps']) - 1,
         value=0, step=1,
-        title="Iteration number", callback=callback)
+        title="Iteration number", callback=slider_callback)
     slider_id = '' + str(slider.vm_serialize()['id'])
  
     p = figure(
         plot_width=int(self.width), plot_height=int(self.height),
         x_range=(0, int(self.model_size['x'])), y_range=(0, int(self.model_size['y'])),
-        tools="", title="Watch Here"
+        title="Watch Here"
         )
  
     button_callback = Callback(
@@ -251,7 +251,7 @@ if (!flags_data['flag']['is_playing']) {
       window.clearInterval(intervalID);
       console.log("Finally")
   }
-  }, Math.floor(1000.0 / 6));
+  }, Math.floor(1000.0 / """ + str(self.start_settings.model_settings.hz / 10.0) + """ / """ + str((float(self.max_iteration) / self.len_before_redunction)) + """));
 } else {
   flags_data['flag']['is_playing'] = false
 }
@@ -270,8 +270,30 @@ return false;
 
     self.layout = vform(button, slider, p)
 
+  def reduce(self):
+    if self.reduced == False:
+      self.len_before_redunction = current = len(self.all_bodies['score'])
+      required = self.max_iteration
+      diff = current - required
+
+      to_remove = []
+      if (diff > 0):
+        number = []
+        for i in range(current):
+          number.append((i, abs((i * (float((required - 1)) / (current - 1))) % 1 - 0.5)))
+        temp = [i[0] for i in sorted(number, key=itemgetter(1))[:diff]]
+        temp = sorted(temp, reverse=True)
+        for i in temp:
+          del self.all_bodies['score'][i]
+          del self.all_bodies['rects_timesteps'][i]
+          del self.all_bodies['circles_timesteps'][i]
+
+      self.reduced = True
+
   def save(self):
+    self.reduce()
     save(self.layout)
 
   def show(self):
+    self.reduce()
     show(self.layout)

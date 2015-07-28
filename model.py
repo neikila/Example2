@@ -7,7 +7,7 @@ import xml.etree.ElementTree as ET
 
 from startSettings import *
 from simulation import *
-from bokeh_drawer import *
+from bokeh_painter import *
 
 
 def indent(elem, level=0):
@@ -186,6 +186,7 @@ class Throwable(Simulation):
     # Initialising settings
     # It should be the first to execute
     sett = self.start_settings = start_settings
+    self.directory_to_save = 'out/'
 
     self.init_world()
     self.world.gravity=b2Vec2(0, -1 * sett.model_settings.g)
@@ -216,8 +217,11 @@ class Throwable(Simulation):
     # Function
     self.score = 0
 
-    # Drawer
-    self.ex = Drawer(self.start_settings, self)
+    # Painter
+    self.ex = Painter(self.start_settings, self, 
+        self.namespace.limit, 
+        self.namespace.size
+        )
     self.ex.save_timestep()
 
   def reduce_health(self, body, impulse):
@@ -234,8 +238,6 @@ class Throwable(Simulation):
     if body in self.bodies:
       index = self.bodies.index(body)
       body_extended = self.bodies[index]
-    if body == self.body:
-      body_extended = self.body
 
     if body_extended != None:
       self.reduce_health(body_extended, impulse)
@@ -251,23 +253,22 @@ class Throwable(Simulation):
     self.step_world(settings)
     
     self.iteration_number += 1
-    if self.iteration_number % 10 == 0:
+    if self.iteration_number % 10 == 0 and (not self.namespace.nosave or self.namespace.show):
       self.ex.save_timestep()
     self.is_finished()
     self.check_health(self.bodies)
-    self.check_health([self.body])
 
   # Actions to do in the end
   def finalize(self):
     if self.finalized == False:
-      self. save_final_state()
+      self.save_final_state()
       indent(self.result_tree)
       tree = ET.ElementTree(self.result_tree)
-      tree.write('OUTPUT.dat')
+      tree.write(self.directory_to_save + 'OUTPUT.dat')
       print "Score: {}".format(self.score)
       self.finalized = True
-      self.ex.create_html()
       if not self.namespace.nosave:
+        self.ex.create_html()
         self.ex.save()
       if self.namespace.show:
         self.ex.show()
@@ -292,9 +293,11 @@ class Throwable(Simulation):
     
     velocity = body.linearVelocity
     accuracy = self.start_settings.model_settings.epsilon_lin_velocity
-    if velocity.lengthSquared < accuracy ** 2:
+    if velocity.lengthSquared < (accuracy ** 2):
       body.linearVelocity = b2Vec2(0, 0)
       return True
+
+    return False
 
 
   # Should modelling be stopped
@@ -302,7 +305,7 @@ class Throwable(Simulation):
     if self.finalized == False:
       result = True
       for body in self.bodies:
-        result = result and self.has_object_finished(body)
+        result = (self.has_object_finished(body) and result)
       if result == True:
         print "Finishing modelling"
         self.finalize()
