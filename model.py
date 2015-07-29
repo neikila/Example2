@@ -5,10 +5,8 @@ import math
 
 import xml.etree.ElementTree as ET
 
-from startSettings import *
+from startSettings import StartSettings
 from simulation import *
-from bokeh_painter import *
-
 
 def indent(elem, level=0):
   i = "\n" + level*"  "
@@ -218,11 +216,13 @@ class Throwable(Simulation):
     self.score = 0
 
     # Painter
-    self.ex = Painter(self.start_settings, self, 
-        self.namespace.limit, 
-        self.namespace.size
-        )
-    self.ex.save_timestep()
+    if not self.namespace.nosave or self.namespace.show:
+      from bokeh_painter import Painter
+      self.ex = Painter(self.start_settings, self, 
+          self.namespace.limit, 
+          self.namespace.size
+          )
+      self.ex.save_timestep()
 
   def reduce_health(self, body, impulse):
     impulse_sum = sum(impulse.normalImpulses)

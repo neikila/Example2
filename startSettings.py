@@ -1,25 +1,32 @@
 from operator import itemgetter
 import xml.etree.ElementTree as ET
+  
 
-
-def get_points_from_xml(element_name, root_element):
-  points = []
+def get_param(element_name, root_element, default_value):
   element = root_element.find(element_name)
-  for point in element.findall('point'):
-    points.append((float(point[0].text), float(point[1].text)))
-  return points
+  if element == None:
+    return default_value
+  else:
+    return element.text
+
+
+def get_objects_from_xml(element_name, root_element, handler):
+  objects = []
+  for subelement in root_element.findall(element_name):
+    objects.append(handler(subelement))
+  return objects
+
+
+def get_point_from_xml(point):
+  return (float(point[0].text), float(point[1].text))
 
 
 def get_polygon_from_xml(polygon):
-  points = []
-  for point in polygon.findall('point'):
-    points.append((float(point[0].text), float(point[1].text)))
-  return points
-
-
-def get_point_from_xml(element_name, root_element):
-  point = root_element.find(element_name)
-  return (float(point[0].text), float(point[1].text))
+  return get_objects_from_xml(
+     'point', 
+     polygon,
+     get_point_from_xml
+     )
 
 
 def get_rectangle_from_xml(rectangle):
@@ -52,25 +59,8 @@ class Circle(object):
 def get_circle_from_xml(circle):
   return Circle(
       float(circle.find('radius').text), 
-      get_point_from_xml('position', circle)
+      get_point_from_xml(circle.find('position'))
       )
-  
-
-def get_objects_from_xml(element_name, subelement_name, root_element, handler):
-  objects = []
-  element = root_element.find(element_name)
-  if element != None:
-    for subelement in element.findall(subelement_name):
-      objects.append(handler(subelement))
-  return objects
-
-
-def get_param(element_name, root_element, default_value):
-  element = root_element.find(element_name)
-  if element == None:
-    return default_value
-  else:
-    return element.text
 
 
 class Material(object):
@@ -107,20 +97,20 @@ class BodySettings(object):
     self.lin_velocity_angle = float(get_param('lin_velocity_angle', body, 0))
     self.angular_velocity = float(get_param('angular_velocity', body, 0))
     self.angle = float(get_param('angle', body, 0))
-    shape = body.find('shape')
+    shape = body.find('shapes')
     self.circles = get_objects_from_xml(
-        'circles', 'circle', shape, 
+        'circle', shape, 
         get_circle_from_xml
         )
     self.polygons = get_objects_from_xml(
-        'polygons', 'polygon', shape,
+        'polygon', shape,
         get_polygon_from_xml
         )
     self.polygons += get_objects_from_xml(
-        'rectangles', 'rectangle', shape,
+        'rectangle', shape,
         get_rectangle_from_xml
         )
-    self.position = get_point_from_xml('position', body)
+    self.position = get_point_from_xml(body.find('position'))
     self.is_dynamic = get_param('is_dynamic', body, 'True') == 'True'
     self.is_target = get_param('is_target', body, 'False') == 'True'
     self.is_projectile = get_param('is_projectile', body, 'False') == 'True'
@@ -129,25 +119,25 @@ class BodySettings(object):
     self.price = float(get_param('price', body, material_library.materials[self.material_type].price))
 
 
-def get_bodies_from_xml(element_name, root_element, material_library):
-  bodies = []
-  element = root_element.find(element_name)
-  for body in element.findall('body'):
-    bodies.append(BodySettings(body, material_library))
-  return bodies
-
-
 class BlockSettings(object):
 
   def __init__(self, block, material_library):
-    self.block_position = get_point_from_xml('block_position', block) 
-    self.bodies = get_bodies_from_xml('bodies', block, material_library)
+    self.block_position = get_point_from_xml(block.find('block_position')) 
+    self.bodies = get_objects_from_xml(
+        'body', 
+        block.find('bodies'), 
+        lambda el : BodySettings(el, material_library)
+        )
 
 
 class GroundSettings(object):
 
   def __init__(self, root_element):
-    self.points = get_points_from_xml('vertices', root_element)
+    self.points = get_objects_from_xml(
+        'point', 
+        root_element.find('vertices'),
+        get_point_from_xml
+        )
     self.left = min(self.points, key=itemgetter(0))
     self.right = max(self.points, key=itemgetter(0))
     self.bottom = min(self.points, key=itemgetter(1))

@@ -19,11 +19,13 @@ parser.add_argument(
         )
 parser.add_argument(
         '-l', '--limit', 
-        type=int, default=201
+        type=int, default=201,
+        help = 'setting limit for iteration amount displayed in html file'
         )
 parser.add_argument(
         '-sz', '--size', 
-        type=int, default=1200
+        type=int, default=1200,
+        help = 'settings size for maximum between width and height of output picture in html file'
         )
 
 namespace = parser.parse_args()
@@ -35,6 +37,8 @@ if namespace.visualised:
   #  - framework.py
   #  - settings.py
 
+  # Clearing arguments because pybox2d will raise an error if it get any of arguments mentioned above
+  # We are also aren't going to use any of pybox2d arguments
   sys.argv = sys.argv[:1]
   from framework import *
   class Simulation(Framework):

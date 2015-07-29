@@ -148,17 +148,15 @@
             <y>10</y>
         </position>
         <angle>0</angle>
-        <shape>
-            <circles>
-                <circle>
-                    <position>
-                        <x>0</x>
-                        <y>0</y>
-                    </position>
-                    <radius>3</radius>
-                </circle>
-            </circles>
-        </shape>
+        <shapes>
+            <circle>
+                <position>
+                    <x>0</x>
+                    <y>0</y>
+                </position>
+                <radius>3</radius>
+            </circle>
+        </shapes>
     </projectile>
     <blocks>
         <block>
@@ -179,28 +177,26 @@
                     </position>
                     <is_dynamic>False</is_dynamic>
                     <material_type>unbreakable_metal</material_type>
-                    <shape>
-                        <polygons>
-                            <polygon>
-                                <point>
-                                    <x>0</x>
-                                    <y>0</y>
-                                </point>
-                                <point>
-                                    <x>0</x>
-                                    <y>-2</y>
-                                </point>
-                                <point>
-                                    <x>20</x>
-                                    <y>-4</y>
-                                </point>
-                                <point>
-                                    <x>20</x>
-                                    <y>-6</y>
-                                </point>
-                            </polygon>
-                        </polygons>
-                    </shape>
+                    <shapes>
+                        <polygon>
+                            <point>
+                                <x>0</x>
+                                <y>0</y>
+                            </point>
+                            <point>
+                                <x>0</x>
+                                <y>-2</y>
+                            </point>
+                            <point>
+                                <x>20</x>
+                                <y>-4</y>
+                            </point>
+                            <point>
+                                <x>20</x>
+                                <y>-6</y>
+                            </point>
+                        </polygon>
+                    </shapes>
                 </body>
             </bodies>
         </block>
@@ -221,14 +217,12 @@
                         <x>0</x>
                         <y>0</y>
                     </position>
-                    <shape>
-                        <rectangles>
-                            <rectangle>
-                                <width>13</width>
-                                <height>1</height>
-                            </rectangle>
-                        </rectangles>
-                    </shape>
+                    <shapes>
+                        <rectangle>
+                            <width>13</width>
+                            <height>1</height>
+                        </rectangle>
+                    </shapes>
                 </body>
                 <body>
                     <position>
@@ -236,17 +230,15 @@
                         <y>3</y>
                     </position>
                     <material_type>metal</material_type>
-                    <shape>
-                        <circles>
-                            <circle>
-                                <position>
-                                    <x>0</x>
-                                    <y>0</y>
-                                </position>
-                                <radius>2</radius>
-                            </circle>
-                        </circles>
-                    </shape>
+                    <shapes>
+                        <circle>
+                            <position>
+                                <x>0</x>
+                                <y>0</y>
+                            </position>
+                            <radius>2</radius>
+                        </circle>
+                    </shapes>
                 </body>
                 <body>
                     <position>
@@ -254,17 +246,15 @@
                         <y>3</y>
                     </position>
                     <material_type>metal</material_type>
-                    <shape>
-                        <circles>
-                            <circle>
-                                <position>
-                                    <x>0</x>
-                                    <y>0</y>
-                                </position>
-                                <radius>2</radius>
-                            </circle>
-                        </circles>
-                    </shape>
+                    <shapes>
+                        <circle>
+                            <position>
+                                <x>0</x>
+                                <y>0</y>
+                            </position>
+                            <radius>2</radius>
+                        </circle>
+                    </shapes>
                 </body>
                 <body>
                     <position>
@@ -272,17 +262,15 @@
                         <y>3</y>
                     </position>
                     <material_type>metal</material_type>
-                    <shape>
-                        <circles>
-                            <circle>
-                                <position>
-                                    <x>0</x>
-                                    <y>0</y>
-                                </position>
-                                <radius>2</radius>
-                            </circle>
-                        </circles>
-                    </shape>
+                    <shapes>
+                        <circle>
+                            <position>
+                                <x>0</x>
+                                <y>0</y>
+                            </position>
+                            <radius>2</radius>
+                        </circle>
+                    </shapes>
                 </body>
                 <body>
                     <position>
@@ -291,14 +279,12 @@
                     </position>
                     <is_dynamic>False</is_dynamic>
                     <material_type>unbreakable_metal</material_type>
-                    <shape>
-                        <rectangles>
-                            <rectangle>
-                                <width>2</width>
-                                <height>16</height>
-                            </rectangle>
-                        </rectangles>
-                    </shape>
+                    <shapes>
+                        <rectangle>
+                            <width>2</width>
+                            <height>16</height>
+                        </rectangle>
+                    </shapes>
                 </body>
             </bodies>
         </block>
@@ -318,56 +304,48 @@
                         <x>-6</x>
                         <y>16</y>
                     </position>
-                    <shape>
-                        <rectangles>
-                            <rectangle>
-                                <width>13</width>
-                                <height>1</height>
-                            </rectangle>
-                        </rectangles>
-                    </shape>
+                    <shapes>
+                        <rectangle>
+                            <width>13</width>
+                            <height>1</height>
+                        </rectangle>
+                    </shapes>
                 </body>
                 <body>
                     <position>
                         <x>-3</x>
                         <y>17</y>
                     </position>
-                    <shape>
-                        <rectangles>
-                            <rectangle>
-                                <width>1</width>
-                                <height>4</height>
-                            </rectangle>
-                        </rectangles>
-                    </shape>
+                    <shapes>
+                        <rectangle>
+                            <width>1</width>
+                            <height>4</height>
+                        </rectangle>
+                    </shapes>
                 </body>
                 <body>
                     <position>
                         <x>3</x>
                         <y>17</y>
                     </position>
-                    <shape>
-                        <rectangles>
-                            <rectangle>
-                                <width>1</width>
-                                <height>4</height>
-                            </rectangle>
-                        </rectangles>
-                    </shape>
+                    <shapes>
+                        <rectangle>
+                            <width>1</width>
+                            <height>4</height>
+                        </rectangle>
+                    </shapes>
                 </body>
                 <body>
                     <position>
                         <x>-3</x>
                         <y>21</y>
                     </position>
-                    <shape>
-                        <rectangles>
-                            <rectangle>
-                                <width>7</width>
-                                <height>1</height>
-                            </rectangle>
-                        </rectangles>
-                    </shape>
+                    <shapes>
+                        <rectangle>
+                            <width>7</width>
+                            <height>1</height>
+                        </rectangle>
+                    </shapes>
                 </body>
                 <body>
                     <position>
@@ -376,14 +354,12 @@
                     </position>
                     <is_target>True</is_target>
                     <material_type>target</material_type>
-                    <shape>
-                        <rectangles>
-                            <rectangle>
-                                <width>3</width>
-                                <height>3</height>
-                            </rectangle>
-                        </rectangles>
-                    </shape>
+                    <shapes>
+                        <rectangle>
+                            <width>3</width>
+                            <height>3</height>
+                        </rectangle>
+                    </shapes>
                 </body>
             </bodies>
         </block>
@@ -403,42 +379,36 @@
                         <x>2</x>
                         <y>15</y>
                     </position>
-                    <shape>
-                        <rectangles>
-                            <rectangle>
-                                <width>6</width>
-                                <height>1</height>
-                            </rectangle>
-                        </rectangles>
-                    </shape>
+                    <shapes>
+                        <rectangle>
+                            <width>6</width>
+                            <height>1</height>
+                        </rectangle>
+                    </shapes>
                 </body>
                 <body>
                     <position>
                         <x>7</x>
                         <y>11</y>
                     </position>
-                    <shape>
-                        <rectangles>
-                            <rectangle>
-                                <width>1</width>
-                                <height>4</height>
-                            </rectangle>
-                        </rectangles>
-                    </shape>
+                    <shapes>
+                        <rectangle>
+                            <width>1</width>
+                            <height>4</height>
+                        </rectangle>
+                    </shapes>
                 </body>
                 <body>
                     <position>
                         <x>2</x>
                         <y>11</y>
                     </position>
-                    <shape>
-                        <rectangles>
-                            <rectangle>
-                                <width>1</width>
-                                <height>4</height>
-                            </rectangle>
-                        </rectangles>
-                    </shape>
+                    <shapes>
+                        <rectangle>
+                            <width>1</width>
+                            <height>4</height>
+                        </rectangle>
+                    </shapes>
                 </body>
                 <body>
                     <position>
@@ -447,68 +417,60 @@
                     </position>
                     <is_target>True</is_target>
                     <material_type>target</material_type>
-                    <shape>
-                        <rectangles>
-                            <rectangle>
-                                <width>2</width>
-                                <height>2</height>
-                            </rectangle>
-                        </rectangles>
-                    </shape>
+                    <shapes>
+                        <rectangle>
+                            <width>2</width>
+                            <height>2</height>
+                        </rectangle>
+                    </shapes>
                 </body>
                 <body>
                     <position>
                         <x>0</x>
                         <y>10</y>
                     </position>
-                    <shape>
-                        <rectangles>
-                            <rectangle>
-                                <width>10</width>
-                                <height>1</height>
-                            </rectangle>
-                        </rectangles>
-                    </shape>
+                    <shapes>
+                        <rectangle>
+                            <width>10</width>
+                            <height>1</height>
+                        </rectangle>
+                    </shapes>
                 </body>
                 <body>
                     <position>
                         <x>10</x>
                         <y>0</y>
                     </position>
-                    <shape>
-                        <rectangles>
-                            <rectangle>
-                                <point>
-                                    <x>0</x>
-                                    <y>0</y>
-                                </point>
-                                <point>
-                                    <x>-1</x>
-                                    <y>10</y>
-                                </point>
-                            </rectangle>
-                        </rectangles>
-                    </shape>
+                    <shapes>
+                        <rectangle>
+                            <point>
+                                <x>0</x>
+                                <y>0</y>
+                            </point>
+                            <point>
+                                <x>-1</x>
+                                <y>10</y>
+                            </point>
+                        </rectangle>
+                    </shapes>
                 </body>
                 <body>
                     <position>
                         <x>0</x>
                         <y>0</y>
                     </position>
-                    <shape>
-                        <rectangles>
-                            <rectangle>
-                                <point>
-                                    <x>0</x>
-                                    <y>0</y>
-                                </point>
-                                <point>
-                                    <x>1</x>
-                                    <y>10</y>
-                                </point>
-                            </rectangle>
-                        </rectangles>
-                    </shape>
+                    <shapes>
+                        <rectangle>
+                            <point>
+                                <x>0</x>
+                                <y>0</y>
+                            </point>
+                            <point>
+                                <x>1</x>
+                                <y>10</y>
+                            </point>
+                        </rectangle>
+                    </shapes>
                 </body>
             </bodies>
         </block>
@@ -528,42 +490,36 @@
                         <x>2</x>
                         <y>15</y>
                     </position>
-                    <shape>
-                        <rectangles>
-                            <rectangle>
-                                <width>6</width>
-                                <height>1</height>
-                            </rectangle>
-                        </rectangles>
-                    </shape>
+                    <shapes>
+                        <rectangle>
+                            <width>6</width>
+                            <height>1</height>
+                        </rectangle>
+                    </shapes>
                 </body>
                 <body>
                     <position>
                         <x>7</x>
                         <y>11</y>
                     </position>
-                    <shape>
-                        <rectangles>
-                            <rectangle>
-                                <width>1</width>
-                                <height>4</height>
-                            </rectangle>
-                        </rectangles>
-                    </shape>
+                    <shapes>
+                        <rectangle>
+                            <width>1</width>
+                            <height>4</height>
+                        </rectangle>
+                    </shapes>
                 </body>
                 <body>
                     <position>
                         <x>2</x>
                         <y>11</y>
                     </position>
-                    <shape>
-                        <rectangles>
-                            <rectangle>
-                                <width>1</width>
-                                <height>4</height>
-                            </rectangle>
-                        </rectangles>
-                    </shape>
+                    <shapes>
+                        <rectangle>
+                            <width>1</width>
+                            <height>4</height>
+                        </rectangle>
+                    </shapes>
                 </body>
                 <body>
                     <position>
@@ -572,68 +528,60 @@
                     </position>
                     <is_target>True</is_target>
                     <material_type>target</material_type>
-                    <shape>
-                        <rectangles>
-                            <rectangle>
-                                <width>2</width>
-                                <height>2</height>
-                            </rectangle>
-                        </rectangles>
-                    </shape>
+                    <shapes>
+                        <rectangle>
+                            <width>2</width>
+                            <height>2</height>
+                        </rectangle>
+                    </shapes>
                 </body>
                 <body>
                     <position>
                         <x>0</x>
                         <y>10</y>
                     </position>
-                    <shape>
-                        <rectangles>
-                            <rectangle>
-                                <width>10</width>
-                                <height>1</height>
-                            </rectangle>
-                        </rectangles>
-                    </shape>
+                    <shapes>
+                        <rectangle>
+                            <width>10</width>
+                            <height>1</height>
+                        </rectangle>
+                    </shapes>
                 </body>
                 <body>
                     <position>
                         <x>10</x>
                         <y>0</y>
                     </position>
-                    <shape>
-                        <rectangles>
-                            <rectangle>
-                                <point>
-                                    <x>0</x>
-                                    <y>0</y>
-                                </point>
-                                <point>
-                                    <x>-1</x>
-                                    <y>10</y>
-                                </point>
-                            </rectangle>
-                        </rectangles>
-                    </shape>
+                    <shapes>
+                        <rectangle>
+                            <point>
+                                <x>0</x>
+                                <y>0</y>
+                            </point>
+                            <point>
+                                <x>-1</x>
+                                <y>10</y>
+                            </point>
+                        </rectangle>
+                    </shapes>
                 </body>
                 <body>
                     <position>
                         <x>0</x>
                         <y>0</y>
                     </position>
-                    <shape>
-                        <rectangles>
-                            <rectangle>
-                                <point>
-                                    <x>0</x>
-                                    <y>0</y>
-                                </point>
-                                <point>
-                                    <x>1</x>
-                                    <y>10</y>
-                                </point>
-                            </rectangle>
-                        </rectangles>
-                    </shape>
+                    <shapes>
+                        <rectangle>
+                            <point>
+                                <x>0</x>
+                                <y>0</y>
+                            </point>
+                            <point>
+                                <x>1</x>
+                                <y>10</y>
+                            </point>
+                        </rectangle>
+                    </shapes>
                 </body>
             </bodies>
         </block>
