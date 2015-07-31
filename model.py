@@ -45,7 +45,7 @@ def create_circle_shapes(circles):
   return shapes
 
 
-def create_shapes(body):
+def shapes_from_points(body):
   shapes = []
   shapes += create_polygon_shapes(body.polygons)
   shapes += create_circle_shapes(body.circles)
@@ -160,7 +160,7 @@ class Throwable(Simulation):
             offset[1] + body.position[1]
             ),
           angle=body.angle,
-          shapes=create_shapes(body),
+          shapes=shapes_from_points(body),
           shapeFixture=b2FixtureDef(density=1),
           angularVelocity=body.angular_velocity,
           linearVelocity=(
@@ -204,7 +204,7 @@ class Throwable(Simulation):
     # Projectile(s)
     body = sett.projectile_settings
     self.body = self.convert_body_settings_to_body(body)
-    self.shapes = create_shapes(body)
+    self.shapes = shapes_from_points(body)
     self.fixtures = self.body.fixtures
     self.mass_data = b2MassData()
 
