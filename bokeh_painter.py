@@ -7,6 +7,7 @@ from startSettings import *
 from datetime import datetime
 import os
 
+
 def append_rect_timestep(all_bodies_timesteps, rects):
   timestep = {'xs':[], 'ys':[], 'color':[]}
   for body in rects:
@@ -16,6 +17,7 @@ def append_rect_timestep(all_bodies_timesteps, rects):
   all_bodies_timesteps['rects_timesteps'].append(timestep)
 
 
+# Convert array of points to dictionary (representation in bokeh)
 def points_to_dictionary(points, zero):
   result = {'x':[], 'y':[]}
 
@@ -135,12 +137,6 @@ current.trigger('change');
 current_circles.trigger('change');
 text.trigger('change');
 """
-
-  def get_trajectory_zero_point(self):
-    return b2Vec2(
-      self.local_zero_point.x,
-      self.local_zero_point.y
-      )
 
   def save_timestep(self):
     material_library = self.start_settings.material_library

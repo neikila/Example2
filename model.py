@@ -8,6 +8,7 @@ import xml.etree.ElementTree as ET
 from startSettings import StartSettings
 from simulation import *
 
+# pretty_print of xml tree
 def indent(elem, level=0):
   i = "\n" + level*"  "
   if len(elem):
@@ -24,6 +25,7 @@ def indent(elem, level=0):
       elem.tail = i
 
 
+# Convert array of points to array of b2EdgeShape
 def create_not_cycled_chain_shape(points):
   shapes = []
   for p1, p2 in zip(points[:-1:1], points[1::1]):
@@ -31,6 +33,7 @@ def create_not_cycled_chain_shape(points):
   return shapes
 
 
+# Convert array of points (which represent polygon) to array of b2PolygonShape
 def create_polygon_shapes(polygons):
   shapes = []
   for polygon in polygons:
@@ -38,6 +41,7 @@ def create_polygon_shapes(polygons):
   return shapes
 
 
+# Convert array of Circle to array of b2CircleShape
 def create_circle_shapes(circles):
   shapes = []
   for circle in circles:
@@ -45,7 +49,8 @@ def create_circle_shapes(circles):
   return shapes
 
 
-def shapes_from_points(body):
+# Get array of shapes from bodySettings
+def shapes_from_body_settings(body):
   shapes = []
   shapes += create_polygon_shapes(body.polygons)
   shapes += create_circle_shapes(body.circles)
@@ -55,6 +60,9 @@ def shapes_from_points(body):
 class Throwable(Simulation):
   iteration_number = 0
 
+  # convert all bodies' state to xml representation, 
+  # so that it could be used as an input configuration file
+  # NOTE there are no settings <model>, <projectile> and <ground>
   def save_final_state(self):
     sett = self.start_settings
     
@@ -149,7 +157,7 @@ class Throwable(Simulation):
     score.text = str(self.score)
 
 
-  def convert_body_settings_to_body(self, body, offset=(0, 0)):
+  def convert_body_settings_to_b2Body(self, body, offset=(0, 0)):
     if body.is_dynamic == True:
       func = self.world.CreateDynamicBody
     else:
@@ -160,7 +168,7 @@ class Throwable(Simulation):
             offset[1] + body.position[1]
             ),
           angle=body.angle,
-          shapes=shapes_from_points(body),
+          shapes=shapes_from_body_settings(body),
           shapeFixture=b2FixtureDef(density=1),
           angularVelocity=body.angular_velocity,
           linearVelocity=(
@@ -199,12 +207,12 @@ class Throwable(Simulation):
     for block in sett.blocks:
       block_position = block.block_position
       for body in block.bodies:
-        block = self.convert_body_settings_to_body(body, block_position)
+        block = self.convert_body_settings_to_b2Body(body, block_position)
 
     # Projectile(s)
     body = sett.projectile_settings
-    self.body = self.convert_body_settings_to_body(body)
-    self.shapes = shapes_from_points(body)
+    self.body = self.convert_body_settings_to_b2Body(body)
+    self.shapes = shapes_from_body_settings(body)
     self.fixtures = self.body.fixtures
     self.mass_data = b2MassData()
 
@@ -280,6 +288,7 @@ class Throwable(Simulation):
         array.remove(el)
         self.world.DestroyBody(el)
 
+  # Checking is the current body out of condition of simulation
   def has_object_finished(self, body):
     pos = body.position
     left = self.start_settings.ground_settings.get_left()
